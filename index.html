@@ -169,7 +169,72 @@
             background: white;
             color: black;
         }
+/* Langsame Bewegung des Hintergrundbildes */
+.background {
+    animation: oceanZoom 18s ease-in-out infinite alternate;
+}
 
+@keyframes oceanZoom {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.06);
+    }
+}
+
+
+/* SEA COAST fährt elegant von oben ein */
+.title {
+    animation: titleAppear 1.5s ease-out forwards;
+}
+
+@keyframes titleAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Quiz erscheint etwas später */
+.quiz-box {
+    opacity: 0;
+    animation: quizAppear 1.3s ease-out 0.7s forwards;
+}
+
+@keyframes quizAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+/* Linie unter SEA COAST wächst auseinander */
+.line {
+    animation: lineGrow 1.5s ease-out 0.5s both;
+}
+
+@keyframes lineGrow {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+
+    to {
+        width: 70px;
+        opacity: 1;
+    }
+}
         @media (max-width: 600px) {
             .title h1 {
                 font-size: 32px;
