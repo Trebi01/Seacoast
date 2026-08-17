@@ -13,16 +13,72 @@
             background: black;
         }
 
-        img {
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .hero img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
+
+        .title {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .title h1 {
+            margin: 0;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: clamp(36px, 5vw, 72px);
+            font-weight: 300;
+            letter-spacing: 14px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.35);
+        }
+
+        .line {
+            width: 70px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.8);
+            margin: 18px auto 0;
+        }
+
+        @media (max-width: 600px) {
+            .title h1 {
+                font-size: 32px;
+                letter-spacing: 8px;
+            }
+
+            .title {
+                top: 8%;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <img src="pexels-white-noiise-77351716-29027466.jpg" alt="SeaCoast">
+
+    <div class="hero">
+
+        <img src="pexels-white-noiise-77351716-29027466.jpg" alt="SeaCoast">
+
+        <div class="title">
+            <h1>Sea Coast</h1>
+            <div class="line"></div>
+        </div>
+
+    </div>
+
 </body>
 </html>
