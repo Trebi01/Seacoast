@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>SeaCoast</title>
 
     <style>
-
         * {
             box-sizing: border-box;
         }
@@ -24,10 +22,7 @@
             background: black;
         }
 
-
-        /* =========================
-           HINTERGRUND
-        ========================= */
+        /* HINTERGRUND */
 
         .background {
             position: fixed;
@@ -47,19 +42,46 @@
         }
 
         @keyframes oceanZoom {
-            from {
-                transform: scale(1);
-            }
-
-            to {
-                transform: scale(1.06);
-            }
+            from { transform: scale(1); }
+            to { transform: scale(1.06); }
         }
 
+        /* SOUND BUTTON */
 
-        /* =========================
-           SEITENMENÜ
-        ========================= */
+        .sound-toggle {
+            position: fixed;
+            top: 25px;
+            right: 30px;
+            z-index: 100;
+
+            width: 46px;
+            height: 46px;
+
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 50%;
+
+            background: rgba(0,0,0,0.22);
+            backdrop-filter: blur(8px);
+
+            color: white;
+            font-size: 21px;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: 0.25s;
+        }
+
+        .sound-toggle:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: white;
+            transform: scale(1.06);
+        }
+
+        /* MENÜ */
 
         .side-menu {
             position: fixed;
@@ -75,29 +97,22 @@
 
         .side-menu a {
             position: relative;
-
             color: rgba(255,255,255,0.78);
             text-decoration: none;
-
             font-size: 16px;
             font-weight: 400;
             letter-spacing: 5px;
-
             transition: 0.3s;
         }
 
         .side-menu a::before {
             content: "";
-
             position: absolute;
             left: -20px;
             top: 50%;
-
             width: 0;
             height: 1px;
-
             background: white;
-
             transition: 0.3s;
         }
 
@@ -110,15 +125,11 @@
             width: 12px;
         }
 
-
-        /* =========================
-           ABSCHNITTE
-        ========================= */
+        /* ABSCHNITTE */
 
         section {
             position: relative;
             z-index: 2;
-
             min-height: 100vh;
             width: 100%;
 
@@ -129,10 +140,7 @@
             padding: 60px 20px;
         }
 
-
-        /* =========================
-           HOME
-        ========================= */
+        /* HOME */
 
         #home {
             flex-direction: column;
@@ -146,38 +154,28 @@
 
         .title h1 {
             margin: 0;
-
             font-size: clamp(38px, 6vw, 78px);
             font-weight: 300;
             letter-spacing: 16px;
-
             text-transform: uppercase;
-
             text-shadow: 0 2px 15px rgba(0,0,0,0.4);
         }
 
         .line {
             width: 70px;
             height: 1px;
-
             margin: 20px auto;
-
             background: rgba(255,255,255,0.9);
-
             animation: lineGrow 1.5s ease-out 0.5s both;
         }
 
         .subtitle {
             color: rgba(255,255,255,0.8);
-
             letter-spacing: 5px;
             font-size: 13px;
             font-weight: 300;
-
             text-transform: uppercase;
-
             opacity: 0;
-
             animation: fadeUp 1.4s ease-out 1s forwards;
         }
 
@@ -186,7 +184,6 @@
                 opacity: 0;
                 transform: translateY(-25px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -198,7 +195,6 @@
                 width: 0;
                 opacity: 0;
             }
-
             to {
                 width: 70px;
                 opacity: 1;
@@ -210,25 +206,19 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-
-        /* =========================
-           GLASBOX
-        ========================= */
+        /* GLASBOX */
 
         .glass-box {
             width: min(90%, 680px);
-
             padding: 35px;
 
             color: white;
-
             text-align: center;
 
             background: rgba(0,0,0,0.55);
@@ -237,7 +227,6 @@
             -webkit-backdrop-filter: blur(10px);
 
             border: 1px solid rgba(255,255,255,0.25);
-
             border-radius: 20px;
 
             box-shadow: 0 10px 40px rgba(0,0,0,0.35);
@@ -247,36 +236,28 @@
 
         .glass-box h2 {
             margin-top: 0;
-
             font-size: 25px;
             font-weight: 300;
             letter-spacing: 6px;
-
             text-transform: uppercase;
         }
 
-
-        /* =========================
-           BUTTONS
-        ========================= */
+        /* BUTTONS */
 
         .main-button {
             margin: 20px auto 0;
-
             padding: 12px 28px;
 
             border: 1px solid white;
             border-radius: 30px;
 
             background: transparent;
-
             color: white;
 
             font-size: 14px;
             letter-spacing: 2px;
 
             cursor: pointer;
-
             transition: 0.25s;
         }
 
@@ -290,10 +271,7 @@
             cursor: default;
         }
 
-
-        /* =========================
-           QUIZ
-        ========================= */
+        /* QUIZ */
 
         #counter {
             opacity: 0.7;
@@ -310,7 +288,6 @@
 
         .answer {
             display: block;
-
             width: 100%;
 
             padding: 14px 18px;
@@ -320,11 +297,9 @@
             border-radius: 10px;
 
             background: rgba(255,255,255,0.08);
-
             color: white;
 
             font-size: 16px;
-
             cursor: pointer;
 
             transition: 0.25s;
@@ -358,10 +333,7 @@
             display: none;
         }
 
-
-        /* =========================
-           NAME
-        ========================= */
+        /* NAME */
 
         .name-area {
             margin-top: 25px;
@@ -376,11 +348,9 @@
             text-align: center;
 
             border-radius: 30px;
-
             border: 1px solid rgba(255,255,255,0.5);
 
             background: rgba(255,255,255,0.10);
-
             color: white;
 
             outline: none;
@@ -398,10 +368,7 @@
             background: rgba(255,255,255,0.15);
         }
 
-
-        /* =========================
-           PUNKTEERKLÄRUNG
-        ========================= */
+        /* PUNKTEERKLÄRUNG */
 
         .legend {
             display: grid;
@@ -412,20 +379,13 @@
 
         .legend-item {
             padding: 10px;
-
             border-radius: 12px;
-
             background: rgba(255,255,255,0.06);
-
             border: 1px solid rgba(255,255,255,0.10);
-
             font-size: 14px;
         }
 
-
-        /* =========================
-           SPIEL
-        ========================= */
+        /* SPIEL */
 
         .game-info {
             display: flex;
@@ -441,16 +401,13 @@
 
         .game-area {
             position: relative;
-
             width: 100%;
             height: 360px;
-
             overflow: hidden;
 
             margin-top: 20px;
 
             border: 1px solid rgba(255,255,255,0.35);
-
             border-radius: 16px;
 
             background:
@@ -462,10 +419,7 @@
                 );
         }
 
-
-        /* =========================
-           SPIELFIGUREN
-        ========================= */
+        /* SPIELFIGUREN */
 
         .game-object {
             position: absolute;
@@ -474,14 +428,12 @@
             height: 64px;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
             font-size: 48px;
 
             cursor: pointer;
-
             user-select: none;
 
             background: none;
@@ -495,13 +447,11 @@
             transform: scale(1.15);
         }
 
-
         .shell-object {
             filter:
                 saturate(0.85)
                 brightness(1.08);
         }
-
 
         .octopus-object {
             filter:
@@ -510,14 +460,12 @@
                 brightness(1.05);
         }
 
-
         .star-object {
             filter:
                 sepia(1)
                 saturate(4.5)
                 brightness(1.15);
         }
-
 
         .crab-object {
             filter:
@@ -526,26 +474,19 @@
                 brightness(1.05);
         }
 
-
         @keyframes objectPop {
             from {
                 transform: scale(0.4);
                 opacity: 0;
             }
-
             to {
                 transform: scale(1);
                 opacity: 1;
             }
         }
 
-
         .object-disappear {
-            animation:
-                objectDisappear
-                0.25s
-                ease-in
-                forwards !important;
+            animation: objectDisappear 0.25s ease-in forwards !important;
         }
 
         @keyframes objectDisappear {
@@ -553,17 +494,13 @@
                 opacity: 1;
                 transform: scale(1);
             }
-
             to {
                 opacity: 0;
                 transform: scale(0.4);
             }
         }
 
-
-        /* =========================
-           TOUCH-WELLE
-        ========================= */
+        /* TOUCH-WELLE */
 
         .touch-wave {
             position: absolute;
@@ -575,42 +512,26 @@
             border-radius: 50%;
 
             pointer-events: none;
-
             z-index: 25;
 
-            transform:
-                translate(-50%,-50%)
-                scale(0.2);
+            transform: translate(-50%,-50%) scale(0.2);
 
-            animation:
-                touchWave
-                0.65s
-                ease-out
-                forwards;
+            animation: touchWave 0.65s ease-out forwards;
         }
 
         @keyframes touchWave {
             0% {
-                transform:
-                    translate(-50%,-50%)
-                    scale(0.2);
-
+                transform: translate(-50%,-50%) scale(0.2);
                 opacity: 0.9;
             }
 
             100% {
-                transform:
-                    translate(-50%,-50%)
-                    scale(4);
-
+                transform: translate(-50%,-50%) scale(4);
                 opacity: 0;
             }
         }
 
-
-        /* =========================
-           PUNKTE POPUP
-        ========================= */
+        /* PUNKTE */
 
         .point-popup {
             position: absolute;
@@ -620,16 +541,11 @@
             pointer-events: none;
 
             font-weight: 700;
-
             font-size: 24px;
 
             text-shadow: 0 2px 6px rgba(0,0,0,0.7);
 
-            animation:
-                pointFloat
-                0.8s
-                ease-out
-                forwards;
+            animation: pointFloat 0.8s ease-out forwards;
         }
 
         .point-positive {
@@ -646,26 +562,17 @@
 
         @keyframes pointFloat {
             from {
-                transform:
-                    translateY(0)
-                    scale(0.8);
-
+                transform: translateY(0) scale(0.8);
                 opacity: 1;
             }
 
             to {
-                transform:
-                    translateY(-45px)
-                    scale(1.15);
-
+                transform: translateY(-45px) scale(1.15);
                 opacity: 0;
             }
         }
 
-
-        /* =========================
-           COUNTDOWN
-        ========================= */
+        /* COUNTDOWN */
 
         .countdown {
             position: absolute;
@@ -683,8 +590,7 @@
 
             color: white;
 
-            text-shadow:
-                0 4px 20px rgba(0,0,0,0.7);
+            text-shadow: 0 4px 20px rgba(0,0,0,0.7);
 
             pointer-events: none;
         }
@@ -694,10 +600,7 @@
         }
 
         .countdown-number {
-            animation:
-                countdownPop
-                0.75s
-                ease-out;
+            animation: countdownPop 0.75s ease-out;
         }
 
         @keyframes countdownPop {
@@ -717,71 +620,50 @@
             }
         }
 
-
         #gameMessage {
             min-height: 28px;
-
             margin-top: 15px;
-
             font-size: 17px;
             line-height: 1.5;
         }
 
-
-        /* =========================
-           LEADERBOARD
-        ========================= */
+        /* LEADERBOARD */
 
         .leaderboard {
             margin-top: 35px;
-
             padding-top: 25px;
-
-            border-top:
-                1px solid rgba(255,255,255,0.20);
+            border-top: 1px solid rgba(255,255,255,0.20);
         }
 
         .leaderboard h3 {
             margin-top: 0;
-
             font-weight: 300;
-
             letter-spacing: 4px;
-
             font-size: 17px;
-
             text-transform: uppercase;
         }
 
         .leaderboard-list {
             width: 100%;
-
             max-width: 470px;
-
             margin: 20px auto 0;
         }
 
         .leaderboard-row {
             display: grid;
-
-            grid-template-columns:
-                45px 1fr auto;
+            grid-template-columns: 45px 1fr auto;
 
             align-items: center;
-
             gap: 10px;
 
             padding: 11px 12px;
-
             margin: 6px 0;
 
             border-radius: 10px;
 
-            background:
-                rgba(255,255,255,0.06);
+            background: rgba(255,255,255,0.06);
 
-            border:
-                1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.08);
         }
 
         .leaderboard-row:nth-child(1) {
@@ -803,34 +685,33 @@
 
         .leader-name {
             text-align: left;
-
             overflow: hidden;
-
             text-overflow: ellipsis;
-
             white-space: nowrap;
         }
 
         .leader-score {
             font-weight: bold;
-
             white-space: nowrap;
         }
 
         #leaderboardStatus {
             margin-top: 15px;
-
             font-size: 13px;
-
             color: rgba(255,255,255,0.65);
         }
 
-
-        /* =========================
-           HANDY
-        ========================= */
+        /* HANDY */
 
         @media (max-width: 700px) {
+
+            .sound-toggle {
+                top: 17px;
+                right: 17px;
+                width: 42px;
+                height: 42px;
+                font-size: 19px;
+            }
 
             .side-menu {
                 left: 18px;
@@ -871,9 +752,7 @@
             }
 
             .leaderboard-row {
-                grid-template-columns:
-                    35px 1fr auto;
-
+                grid-template-columns: 35px 1fr auto;
                 font-size: 14px;
             }
 
@@ -885,11 +764,7 @@
     </style>
 </head>
 
-
 <body>
-
-
-<!-- HINTERGRUND -->
 
 <img
     class="background"
@@ -899,25 +774,24 @@
 
 <div class="overlay"></div>
 
+<!-- SOUND -->
+
+<button
+    id="soundToggle"
+    class="sound-toggle"
+    onclick="toggleSound()"
+    aria-label="Ton ein oder ausschalten"
+>
+    🔊
+</button>
 
 <!-- MENÜ -->
 
 <nav class="side-menu">
-
-    <a href="#home">
-        HOME
-    </a>
-
-    <a href="#quiz">
-        QUIZ
-    </a>
-
-    <a href="#game">
-        SPIEL
-    </a>
-
+    <a href="#home">HOME</a>
+    <a href="#quiz">QUIZ</a>
+    <a href="#game">SPIEL</a>
 </nav>
-
 
 <!-- HOME -->
 
@@ -925,9 +799,7 @@
 
     <div class="title">
 
-        <h1>
-            Sea Coast
-        </h1>
+        <h1>Sea Coast</h1>
 
         <div class="line"></div>
 
@@ -939,23 +811,17 @@
 
 </section>
 
-
 <!-- QUIZ -->
 
 <section id="quiz">
 
     <div class="glass-box">
 
-        <h2>
-            Ocean Quiz
-        </h2>
+        <h2>Ocean Quiz</h2>
 
         <div id="counter"></div>
-
         <div id="question"></div>
-
         <div id="answers"></div>
-
         <div id="message"></div>
 
         <button
@@ -978,46 +844,37 @@
 
 </section>
 
-
 <!-- SPIEL -->
 
 <section id="game">
 
     <div class="glass-box">
 
-        <h2>
-            Sea Hunt
-        </h2>
+        <h2>Sea Hunt</h2>
 
         <p>
             Sammle in 30 Sekunden so viele Punkte wie möglich.
         </p>
 
-
         <div class="legend">
 
             <div class="legend-item">
-                🐚 Muschel
-                <strong>+1</strong>
+                🐚 Muschel <strong>+1</strong>
             </div>
 
             <div class="legend-item">
-                🐙 Lila Octopus
-                <strong>+2</strong>
+                🐙 Lila Octopus <strong>+2</strong>
             </div>
 
             <div class="legend-item">
-                ⭐ Goldener Seestern
-                <strong>+5</strong>
+                ⭐ Goldener Seestern <strong>+5</strong>
             </div>
 
             <div class="legend-item">
-                🦀 Feuerrote Krabbe
-                <strong>−3</strong>
+                🦀 Feuerrote Krabbe <strong>−3</strong>
             </div>
 
         </div>
-
 
         <div class="name-area">
 
@@ -1032,25 +889,19 @@
 
         </div>
 
-
         <div class="game-info">
 
             <div>
                 PUNKTE:
-                <strong id="gameScore">
-                    0
-                </strong>
+                <strong id="gameScore">0</strong>
             </div>
 
             <div>
                 ZEIT:
-                <strong id="gameTime">
-                    30
-                </strong>
+                <strong id="gameTime">30</strong>
             </div>
 
         </div>
-
 
         <button
             id="gameStartButton"
@@ -1060,30 +911,23 @@
             SPIEL STARTEN
         </button>
 
-
         <div
             class="game-area"
             id="gameArea"
         >
-
             <div
                 class="countdown"
                 id="countdown"
             ></div>
-
         </div>
-
 
         <div id="gameMessage">
             Gib deinen Namen ein und starte das Spiel.
         </div>
 
-
         <div class="leaderboard">
 
-            <h3>
-                🏆 Top 10
-            </h3>
+            <h3>🏆 Top 10</h3>
 
             <div
                 class="leaderboard-list"
@@ -1100,9 +944,7 @@
 
 </section>
 
-
 <script>
-
 
 /* =====================================================
    SUPABASE
@@ -1111,33 +953,509 @@
 const SUPABASE_URL =
     "https://iyhnmnzswsqxwezzsmao.supabase.co";
 
-
 const SUPABASE_KEY =
     "sb_publishable_V3R_-pYm73k2KmESn9HgMA_7qWdw23w";
 
 
 /* =====================================================
-   AUDIO
+   AUDIO / MEER / MÖWEN
 ===================================================== */
 
 let audioContext = null;
 
+let masterGain = null;
+let ambientGain = null;
+let effectsGain = null;
 
-function getAudioContext() {
+let oceanSource = null;
+let oceanLFO = null;
 
-    if (!audioContext) {
+let gullTimer = null;
 
-        audioContext =
-            new (
-                window.AudioContext ||
-                window.webkitAudioContext
-            )();
+let soundEnabled = true;
+let ambientCreated = false;
 
+
+/* AUDIO AUFBAU */
+
+function setupAudio() {
+
+    if (audioContext) {
+        return audioContext;
     }
+
+    audioContext =
+        new (
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+
+    masterGain =
+        audioContext.createGain();
+
+    ambientGain =
+        audioContext.createGain();
+
+    effectsGain =
+        audioContext.createGain();
+
+
+    masterGain.gain.value =
+        soundEnabled ? 1 : 0;
+
+    ambientGain.gain.value =
+        0.65;
+
+    effectsGain.gain.value =
+        1;
+
+
+    ambientGain.connect(
+        masterGain
+    );
+
+    effectsGain.connect(
+        masterGain
+    );
+
+    masterGain.connect(
+        audioContext.destination
+    );
+
 
     return audioContext;
 }
 
+
+/* WELLENRAUSCHEN */
+
+function createOceanSound() {
+
+    if (ambientCreated) return;
+
+    const ctx =
+        setupAudio();
+
+
+    const bufferLength =
+        ctx.sampleRate * 4;
+
+
+    const buffer =
+        ctx.createBuffer(
+            1,
+            bufferLength,
+            ctx.sampleRate
+        );
+
+
+    const data =
+        buffer.getChannelData(0);
+
+
+    for (
+        let i = 0;
+        i < bufferLength;
+        i++
+    ) {
+
+        data[i] =
+            Math.random() * 2 - 1;
+
+    }
+
+
+    oceanSource =
+        ctx.createBufferSource();
+
+    oceanSource.buffer =
+        buffer;
+
+    oceanSource.loop =
+        true;
+
+
+    const lowPass =
+        ctx.createBiquadFilter();
+
+    lowPass.type =
+        "lowpass";
+
+    lowPass.frequency.value =
+        700;
+
+
+    const highPass =
+        ctx.createBiquadFilter();
+
+    highPass.type =
+        "highpass";
+
+    highPass.frequency.value =
+        70;
+
+
+    const waveGain =
+        ctx.createGain();
+
+    waveGain.gain.value =
+        0.030;
+
+
+    /*
+       Langsame Lautstärkeschwankung,
+       dadurch wirkt das Rauschen wie Wellen.
+    */
+
+    oceanLFO =
+        ctx.createOscillator();
+
+    oceanLFO.frequency.value =
+        0.09;
+
+
+    const lfoGain =
+        ctx.createGain();
+
+    lfoGain.gain.value =
+        0.018;
+
+
+    oceanLFO.connect(
+        lfoGain
+    );
+
+
+    lfoGain.connect(
+        waveGain.gain
+    );
+
+
+    oceanSource.connect(
+        lowPass
+    );
+
+
+    lowPass.connect(
+        highPass
+    );
+
+
+    highPass.connect(
+        waveGain
+    );
+
+
+    waveGain.connect(
+        ambientGain
+    );
+
+
+    oceanSource.start();
+
+    oceanLFO.start();
+
+
+    ambientCreated =
+        true;
+
+
+    scheduleGull();
+
+}
+
+
+/* MÖWE */
+
+function playGull() {
+
+    if (
+        !soundEnabled ||
+        !audioContext ||
+        audioContext.state !== "running"
+    ) {
+        return;
+    }
+
+
+    const ctx =
+        audioContext;
+
+
+    /*
+       Zwei kurze Rufe
+    */
+
+    const gullCry =
+        function(delay = 0) {
+
+
+            const osc =
+                ctx.createOscillator();
+
+
+            const gain =
+                ctx.createGain();
+
+
+            osc.type =
+                "sine";
+
+
+            const start =
+                ctx.currentTime + delay;
+
+
+            osc.frequency.setValueAtTime(
+                850,
+                start
+            );
+
+
+            osc.frequency.exponentialRampToValueAtTime(
+                1250,
+                start + 0.18
+            );
+
+
+            osc.frequency.exponentialRampToValueAtTime(
+                760,
+                start + 0.55
+            );
+
+
+            gain.gain.setValueAtTime(
+                0.001,
+                start
+            );
+
+
+            gain.gain.linearRampToValueAtTime(
+                0.022,
+                start + 0.08
+            );
+
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.001,
+                start + 0.60
+            );
+
+
+            osc.connect(
+                gain
+            );
+
+
+            gain.connect(
+                ambientGain
+            );
+
+
+            osc.start(
+                start
+            );
+
+
+            osc.stop(
+                start + 0.62
+            );
+
+        };
+
+
+    gullCry(0);
+
+
+    /*
+       Manchmal zweiter Ruf
+    */
+
+    if (
+        Math.random() > 0.45
+    ) {
+
+        gullCry(
+            0.7 +
+            Math.random() * 0.5
+        );
+
+    }
+
+}
+
+
+/* NÄCHSTE MÖWE */
+
+function scheduleGull() {
+
+    clearTimeout(
+        gullTimer
+    );
+
+
+    /*
+       ungefähr alle
+       15 bis 35 Sekunden
+    */
+
+    const delay =
+        15000 +
+        Math.random() * 20000;
+
+
+    gullTimer =
+        setTimeout(
+            function() {
+
+
+                playGull();
+
+
+                scheduleGull();
+
+
+            },
+            delay
+        );
+
+}
+
+
+/* HINTERGRUNDTON STARTEN */
+
+async function startAmbientSound() {
+
+    const ctx =
+        setupAudio();
+
+
+    createOceanSound();
+
+
+    if (
+        ctx.state === "suspended"
+    ) {
+
+        try {
+
+            await ctx.resume();
+
+        } catch(error) {
+
+            /*
+               Browser wartet auf
+               ersten Benutzerklick.
+            */
+
+        }
+
+    }
+
+}
+
+
+/* TON EIN / AUS */
+
+async function toggleSound() {
+
+    setupAudio();
+
+
+    soundEnabled =
+        !soundEnabled;
+
+
+    const button =
+        document.getElementById(
+            "soundToggle"
+        );
+
+
+    if (
+        soundEnabled
+    ) {
+
+        masterGain.gain.setTargetAtTime(
+            1,
+            audioContext.currentTime,
+            0.08
+        );
+
+
+        button.innerText =
+            "🔊";
+
+
+        await startAmbientSound();
+
+    }
+
+    else {
+
+        masterGain.gain.setTargetAtTime(
+            0,
+            audioContext.currentTime,
+            0.08
+        );
+
+
+        button.innerText =
+            "🔇";
+
+    }
+
+}
+
+
+/*
+   Sofort beim Laden versuchen.
+*/
+
+window.addEventListener(
+    "load",
+    function() {
+
+        startAmbientSound();
+
+    }
+);
+
+
+/*
+   Falls Autoplay blockiert wurde:
+   beim allerersten Klick / Touch
+   startet das Meer automatisch.
+*/
+
+async function unlockAudio() {
+
+    if (
+        soundEnabled
+    ) {
+
+        await startAmbientSound();
+
+    }
+
+
+    document.removeEventListener(
+        "pointerdown",
+        unlockAudio
+    );
+
+}
+
+
+document.addEventListener(
+    "pointerdown",
+    unlockAudio
+);
+
+
+/* =====================================================
+   SPIEL-SOUNDEFFEKTE
+===================================================== */
 
 function playTone(
     frequency,
@@ -1146,8 +1464,18 @@ function playTone(
     volume = 0.10
 ) {
 
+    if (
+        !soundEnabled
+    ) return;
+
+
     const ctx =
-        getAudioContext();
+        setupAudio();
+
+
+    if (
+        ctx.state !== "running"
+    ) return;
 
 
     const oscillator =
@@ -1184,7 +1512,7 @@ function playTone(
 
 
     gain.connect(
-        ctx.destination
+        effectsGain
     );
 
 
@@ -1202,7 +1530,6 @@ function playObjectSound(
     points
 ) {
 
-
     if (
         points === 1
     ) {
@@ -1216,7 +1543,6 @@ function playObjectSound(
 
     }
 
-
     else if (
         points === 2
     ) {
@@ -1229,7 +1555,6 @@ function playObjectSound(
         );
 
     }
-
 
     else if (
         points === 5
@@ -1259,7 +1584,6 @@ function playObjectSound(
 
     }
 
-
     else if (
         points === -3
     ) {
@@ -1274,7 +1598,6 @@ function playObjectSound(
     }
 
 }
-
 
 
 /* =====================================================
@@ -1363,7 +1686,9 @@ let answered = false;
 
 function showQuestion() {
 
-    answered = false;
+    answered =
+        false;
+
 
     const q =
         questions[currentQuestion];
@@ -1401,7 +1726,7 @@ function showQuestion() {
 
 
     q.answers.forEach(
-        (answer, index) => {
+        (answer,index) => {
 
 
             const button =
@@ -1444,7 +1769,9 @@ function checkAnswer(
     selectedButton
 ) {
 
-    if (answered) return;
+    if (
+        answered
+    ) return;
 
 
     answered =
@@ -1462,8 +1789,7 @@ function checkAnswer(
 
 
     if (
-        index ===
-        q.correct
+        index === q.correct
     ) {
 
         selectedButton.classList.add(
@@ -1625,7 +1951,6 @@ function restartQuiz() {
 showQuestion();
 
 
-
 /* =====================================================
    SPIEL
 ===================================================== */
@@ -1683,9 +2008,7 @@ let currentPlayerName =
     "";
 
 
-/* =====================================================
-   COUNTDOWN
-===================================================== */
+/* COUNTDOWN */
 
 function wait(
     milliseconds
@@ -1797,10 +2120,7 @@ async function runCountdown() {
 }
 
 
-
-/* =====================================================
-   SPIEL STARTEN
-===================================================== */
+/* SPIEL STARTEN */
 
 async function startGame() {
 
@@ -1842,22 +2162,7 @@ async function startGame() {
         );
 
 
-    /*
-       Audio durch Benutzerklick freischalten
-    */
-
-    const ctx =
-        getAudioContext();
-
-
-    if (
-        ctx.state ===
-        "suspended"
-    ) {
-
-        await ctx.resume();
-
-    }
+    await startAmbientSound();
 
 
     gameRunning =
@@ -1898,11 +2203,6 @@ async function startGame() {
         true;
 
 
-    /*
-       Spielfeld leeren,
-       Countdown aber behalten
-    */
-
     const area =
         document.getElementById(
             "gameArea"
@@ -1912,16 +2212,12 @@ async function startGame() {
     area.querySelectorAll(
         ".game-object, .touch-wave, .point-popup"
     ).forEach(
-        element => element.remove()
+        element =>
+            element.remove()
     );
 
 
     await runCountdown();
-
-
-    if (
-        !gameRunning
-    ) return;
 
 
     document.getElementById("gameMessage").innerText =
@@ -1931,10 +2227,6 @@ async function startGame() {
     document.getElementById("gameStartButton").innerText =
         "SPIEL LÄUFT";
 
-
-    /*
-       Erste Symbole
-    */
 
     spawnObject();
 
@@ -1950,10 +2242,6 @@ async function startGame() {
         950
     );
 
-
-    /*
-       30-Sekunden-Timer
-    */
 
     gameTimer =
         setInterval(
@@ -1986,23 +2274,12 @@ async function startGame() {
 }
 
 
-
-/* =====================================================
-   SYMBOL AUSWÄHLEN
-===================================================== */
+/* SYMBOL AUSWÄHLEN */
 
 function chooseRandomObject() {
 
     const random =
         Math.random();
-
-
-    /*
-        Muschel   45 %
-        Octopus   30 %
-        Seestern  15 %
-        Krabbe    10 %
-    */
 
 
     if (
@@ -2037,10 +2314,7 @@ function chooseRandomObject() {
 }
 
 
-
-/* =====================================================
-   SYMBOL ERZEUGEN
-===================================================== */
+/* SYMBOL ERZEUGEN */
 
 function spawnObject() {
 
@@ -2137,10 +2411,6 @@ function spawnObject() {
     );
 
 
-    /*
-       1,8 bis max. 3 Sekunden sichtbar
-    */
-
     const visibleTime =
         1800 +
         Math.random() *
@@ -2190,10 +2460,7 @@ function spawnObject() {
 }
 
 
-
-/* =====================================================
-   UNREGELMÄSSIGES ERSCHEINEN
-===================================================== */
+/* UNREGELMÄSSIGE FIGUREN */
 
 function scheduleNextSpawn() {
 
@@ -2226,10 +2493,7 @@ function scheduleNextSpawn() {
 }
 
 
-
-/* =====================================================
-   SYMBOL ANGEKLICKT
-===================================================== */
+/* TREFFER */
 
 function collectObject(
     event,
@@ -2276,10 +2540,7 @@ function collectObject(
 }
 
 
-
-/* =====================================================
-   WASSERWELLE
-===================================================== */
+/* WASSERWELLE */
 
 function showTouchWave(
     event
@@ -2338,10 +2599,7 @@ function showTouchWave(
 }
 
 
-
-/* =====================================================
-   PUNKTEANIMATION
-===================================================== */
+/* PUNKTEANIMATION */
 
 function showPointPopup(
     event,
@@ -2436,10 +2694,7 @@ function showPointPopup(
 }
 
 
-
-/* =====================================================
-   SPIEL ENDE
-===================================================== */
+/* SPIEL ENDE */
 
 async function endGame() {
 
@@ -2552,9 +2807,8 @@ async function endGame() {
 }
 
 
-
 /* =====================================================
-   SPIELSTAND SPEICHERN
+   SUPABASE SPEICHERN
 ===================================================== */
 
 async function saveScore(
@@ -2563,7 +2817,6 @@ async function saveScore(
 ) {
 
     try {
-
 
         const response =
             await fetch(
@@ -2609,19 +2862,8 @@ async function saveScore(
             !response.ok
         ) {
 
-
-            const errorText =
-                await response.text();
-
-
-            console.error(
-                "Supabase Fehler:",
-                errorText
-            );
-
-
             throw new Error(
-                "Spielstand konnte nicht gespeichert werden."
+                await response.text()
             );
 
         }
@@ -2644,13 +2886,9 @@ async function saveScore(
 
         await loadLeaderboard();
 
-
     }
 
-    catch (
-        error
-    ) {
-
+    catch(error) {
 
         console.error(
             error
@@ -2672,9 +2910,8 @@ async function saveScore(
 }
 
 
-
 /* =====================================================
-   TOP 10 LADEN
+   TOP 10
 ===================================================== */
 
 async function loadLeaderboard() {
@@ -2696,7 +2933,6 @@ async function loadLeaderboard() {
 
 
     try {
-
 
         const url =
 
@@ -2737,19 +2973,8 @@ async function loadLeaderboard() {
             !response.ok
         ) {
 
-
-            const errorText =
-                await response.text();
-
-
-            console.error(
-                "Leaderboard Fehler:",
-                errorText
-            );
-
-
             throw new Error(
-                "Leaderboard konnte nicht geladen werden."
+                await response.text()
             );
 
         }
@@ -2767,7 +2992,6 @@ async function loadLeaderboard() {
             !data ||
             data.length === 0
         ) {
-
 
             leaderboardList.innerHTML =
 
@@ -2790,7 +3014,7 @@ async function loadLeaderboard() {
 
 
         data.forEach(
-            (player, index) => {
+            (player,index) => {
 
 
                 const row =
@@ -2904,13 +3128,9 @@ async function loadLeaderboard() {
         status.innerText =
             "Top 10 aller Spieler";
 
-
     }
 
-    catch (
-        error
-    ) {
-
+    catch(error) {
 
         console.error(
             error
@@ -2930,7 +3150,6 @@ async function loadLeaderboard() {
 
 
 loadLeaderboard();
-
 
 </script>
 
