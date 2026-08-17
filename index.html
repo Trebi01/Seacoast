@@ -6,6 +6,7 @@
     <title>SeaCoast</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -21,6 +22,11 @@
             font-family: "Helvetica Neue", Arial, sans-serif;
             background: black;
         }
+
+
+        /* =========================
+           HINTERGRUND
+        ========================= */
 
         .background {
             position: fixed;
@@ -40,9 +46,19 @@
         }
 
         @keyframes oceanZoom {
-            from { transform: scale(1); }
-            to { transform: scale(1.06); }
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.06);
+            }
         }
+
+
+        /* =========================
+           SEITENMENÜ
+        ========================= */
 
         .side-menu {
             position: fixed;
@@ -50,6 +66,7 @@
             top: 50%;
             transform: translateY(-50%);
             z-index: 20;
+
             display: flex;
             flex-direction: column;
             gap: 38px;
@@ -57,22 +74,30 @@
 
         .side-menu a {
             position: relative;
+
             color: rgba(255,255,255,0.78);
             text-decoration: none;
+
             font-size: 16px;
             font-weight: 400;
             letter-spacing: 5px;
+
             transition: 0.3s;
         }
 
         .side-menu a::before {
             content: "";
+
             position: absolute;
+
             left: -20px;
             top: 50%;
+
             width: 0;
             height: 1px;
+
             background: white;
+
             transition: 0.3s;
         }
 
@@ -85,16 +110,29 @@
             width: 12px;
         }
 
+
+        /* =========================
+           SEITENABSCHNITTE
+        ========================= */
+
         section {
             position: relative;
             z-index: 2;
+
             min-height: 100vh;
             width: 100%;
+
             display: flex;
             justify-content: center;
             align-items: center;
+
             padding: 60px 20px;
         }
+
+
+        /* =========================
+           HOME
+        ========================= */
 
         #home {
             flex-direction: column;
@@ -108,36 +146,52 @@
 
         .title h1 {
             margin: 0;
+
             font-size: clamp(38px, 6vw, 78px);
+
             font-weight: 300;
+
             letter-spacing: 16px;
+
             text-transform: uppercase;
+
             text-shadow: 0 2px 15px rgba(0,0,0,0.4);
         }
 
         .line {
             width: 70px;
             height: 1px;
+
             margin: 20px auto;
+
             background: rgba(255,255,255,0.9);
+
             animation: lineGrow 1.5s ease-out 0.5s both;
         }
 
         .subtitle {
             color: rgba(255,255,255,0.8);
+
             letter-spacing: 5px;
+
             font-size: 13px;
+
             font-weight: 300;
+
             text-transform: uppercase;
+
             opacity: 0;
+
             animation: fadeUp 1.4s ease-out 1s forwards;
         }
 
         @keyframes titleAppear {
+
             from {
                 opacity: 0;
                 transform: translateY(-25px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -145,10 +199,12 @@
         }
 
         @keyframes lineGrow {
+
             from {
                 width: 0;
                 opacity: 0;
             }
+
             to {
                 width: 70px;
                 opacity: 1;
@@ -156,48 +212,82 @@
         }
 
         @keyframes fadeUp {
+
             from {
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
+
+        /* =========================
+           GLASBOX
+        ========================= */
+
         .glass-box {
             width: min(90%, 680px);
+
             padding: 35px;
+
             color: white;
+
             text-align: center;
+
             background: rgba(0,0,0,0.55);
+
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+
             border: 1px solid rgba(255,255,255,0.25);
+
             border-radius: 20px;
+
             box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+
             animation: fadeUp 1s ease-out;
         }
 
         .glass-box h2 {
             margin-top: 0;
+
             font-size: 25px;
+
             font-weight: 300;
+
             letter-spacing: 6px;
+
             text-transform: uppercase;
         }
 
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
         .main-button {
             margin: 20px auto 0;
+
             padding: 12px 28px;
+
             border: 1px solid white;
+
             border-radius: 30px;
+
             background: transparent;
+
             color: white;
+
             font-size: 14px;
+
             letter-spacing: 2px;
+
             cursor: pointer;
+
             transition: 0.25s;
         }
 
@@ -211,35 +301,56 @@
             cursor: default;
         }
 
+
+        /* =========================
+           QUIZ
+        ========================= */
+
         #counter {
             opacity: 0.7;
+
             font-size: 13px;
+
             margin-bottom: 20px;
+
             letter-spacing: 2px;
         }
 
         #question {
             font-size: 22px;
+
             line-height: 1.4;
+
             margin-bottom: 25px;
         }
 
         .answer {
             display: block;
+
             width: 100%;
+
             padding: 14px 18px;
+
             margin: 12px 0;
+
             border: 1px solid rgba(255,255,255,0.5);
+
             border-radius: 10px;
+
             background: rgba(255,255,255,0.08);
+
             color: white;
+
             font-size: 16px;
+
             cursor: pointer;
+
             transition: 0.25s;
         }
 
         .answer:hover {
             background: rgba(255,255,255,0.22);
+
             transform: translateY(-2px);
         }
 
@@ -257,7 +368,9 @@
 
         #message {
             min-height: 30px;
+
             margin-top: 20px;
+
             font-size: 18px;
         }
 
@@ -266,6 +379,11 @@
             display: none;
         }
 
+
+        /* =========================
+           SPIELERNAME
+        ========================= */
+
         .name-area {
             margin-top: 25px;
             margin-bottom: 15px;
@@ -273,14 +391,23 @@
 
         .name-input {
             width: min(100%, 350px);
+
             padding: 13px 18px;
+
             text-align: center;
+
             border-radius: 30px;
+
             border: 1px solid rgba(255,255,255,0.5);
+
             background: rgba(255,255,255,0.10);
+
             color: white;
+
             outline: none;
+
             font-size: 16px;
+
             letter-spacing: 1px;
         }
 
@@ -290,42 +417,72 @@
 
         .name-input:focus {
             border-color: white;
+
             background: rgba(255,255,255,0.15);
         }
 
+
+        /* =========================
+           PUNKTEERKLÄRUNG
+        ========================= */
+
         .legend {
             display: grid;
+
             grid-template-columns: repeat(2, 1fr);
+
             gap: 10px;
+
             margin: 25px 0 15px;
         }
 
         .legend-item {
             padding: 10px;
+
             border-radius: 12px;
+
             background: rgba(255,255,255,0.06);
+
             border: 1px solid rgba(255,255,255,0.10);
+
             font-size: 14px;
         }
 
+
+        /* =========================
+           SPIEL
+        ========================= */
+
         .game-info {
             display: flex;
+
             justify-content: space-between;
+
             gap: 20px;
+
             margin-top: 20px;
             margin-bottom: 18px;
+
             font-size: 15px;
+
             letter-spacing: 2px;
         }
 
         .game-area {
             position: relative;
+
             width: 100%;
+
             height: 360px;
+
             overflow: hidden;
+
             margin-top: 20px;
+
             border: 1px solid rgba(255,255,255,0.35);
+
             border-radius: 16px;
+
             background:
                 linear-gradient(
                     to bottom,
@@ -337,15 +494,23 @@
 
         .game-object {
             position: absolute;
-            display: none;
+
             width: 64px;
             height: 64px;
+
+            display: flex;
+
             align-items: center;
             justify-content: center;
+
             font-size: 46px;
+
             cursor: pointer;
+
             user-select: none;
+
             border-radius: 50%;
+
             animation: objectPop 0.20s ease-out;
         }
 
@@ -353,62 +518,135 @@
             transform: scale(1.15);
         }
 
+
+        /* MUSCHEL */
+
         .shell-object {
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.35));
+            filter:
+                drop-shadow(
+                    0 0 5px rgba(255,255,255,0.35)
+                );
         }
+
+
+        /* LILA OCTOPUS */
 
         .octopus-object {
-            background: radial-gradient(
-                circle,
-                rgba(180,70,255,0.30),
-                rgba(120,0,180,0.12)
-            );
-            box-shadow: 0 0 20px rgba(170,70,255,0.45);
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(180,70,255,0.30),
+                    rgba(120,0,180,0.12)
+                );
+
+            box-shadow:
+                0 0 20px rgba(170,70,255,0.60);
+
+            filter:
+                saturate(1.4);
         }
+
+
+        /* GOLDENER SEESTERN */
 
         .star-object {
-            background: radial-gradient(
-                circle,
-                rgba(255,215,0,0.35),
-                rgba(255,170,0,0.08)
-            );
-            box-shadow: 0 0 28px rgba(255,215,0,0.75);
-            filter: saturate(1.5);
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,215,0,0.40),
+                    rgba(255,170,0,0.08)
+                );
+
+            box-shadow:
+                0 0 30px rgba(255,215,0,0.85);
+
+            filter:
+                saturate(1.6);
         }
+
+
+        /* FEUERROTE KRABBE */
 
         .crab-object {
-            background: radial-gradient(
-                circle,
-                rgba(255,40,20,0.38),
-                rgba(140,0,0,0.10)
-            );
-            box-shadow: 0 0 24px rgba(255,40,20,0.65);
-            filter: saturate(1.8) hue-rotate(-12deg);
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,40,20,0.42),
+                    rgba(140,0,0,0.10)
+                );
+
+            box-shadow:
+                0 0 28px rgba(255,40,20,0.75);
+
+            filter:
+                saturate(1.9)
+                hue-rotate(-12deg);
         }
 
+
         @keyframes objectPop {
+
             from {
                 transform: scale(0.4);
                 opacity: 0;
             }
+
             to {
                 transform: scale(1);
                 opacity: 1;
             }
         }
 
+
+        /* AUSBLENDEN */
+
+        .object-disappear {
+            animation:
+                objectDisappear
+                0.25s
+                ease-in
+                forwards !important;
+        }
+
+        @keyframes objectDisappear {
+
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(0.4);
+            }
+        }
+
+
+        /* PUNKTE POPUP */
+
         .point-popup {
             position: absolute;
+
             z-index: 30;
+
             pointer-events: none;
+
             font-weight: 700;
+
             font-size: 24px;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.7);
-            animation: pointFloat 0.8s ease-out forwards;
+
+            text-shadow:
+                0 2px 6px rgba(0,0,0,0.7);
+
+            animation:
+                pointFloat
+                0.8s
+                ease-out
+                forwards;
         }
 
         .point-positive {
-            color: #ffffff;
+            color: white;
         }
 
         .point-gold {
@@ -420,65 +658,104 @@
         }
 
         @keyframes pointFloat {
+
             from {
-                transform: translateY(0) scale(0.8);
+                transform:
+                    translateY(0)
+                    scale(0.8);
+
                 opacity: 1;
             }
+
             to {
-                transform: translateY(-45px) scale(1.15);
+                transform:
+                    translateY(-45px)
+                    scale(1.15);
+
                 opacity: 0;
             }
         }
 
         #gameMessage {
             min-height: 28px;
+
             margin-top: 15px;
+
             font-size: 17px;
+
             line-height: 1.5;
         }
 
+
+        /* =========================
+           LEADERBOARD
+        ========================= */
+
         .leaderboard {
             margin-top: 35px;
+
             padding-top: 25px;
-            border-top: 1px solid rgba(255,255,255,0.20);
+
+            border-top:
+                1px solid rgba(255,255,255,0.20);
         }
 
         .leaderboard h3 {
             margin-top: 0;
+
             font-weight: 300;
+
             letter-spacing: 4px;
+
             font-size: 17px;
+
             text-transform: uppercase;
         }
 
         .leaderboard-list {
             width: 100%;
+
             max-width: 470px;
+
             margin: 20px auto 0;
         }
 
         .leaderboard-row {
             display: grid;
-            grid-template-columns: 45px 1fr auto;
+
+            grid-template-columns:
+                45px 1fr auto;
+
             align-items: center;
+
             gap: 10px;
+
             padding: 11px 12px;
+
             margin: 6px 0;
+
             border-radius: 10px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.08);
+
+            background:
+                rgba(255,255,255,0.06);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
         }
 
         .leaderboard-row:nth-child(1) {
-            background: rgba(255,215,0,0.14);
+            background:
+                rgba(255,215,0,0.14);
         }
 
         .leaderboard-row:nth-child(2) {
-            background: rgba(220,220,220,0.11);
+            background:
+                rgba(220,220,220,0.11);
         }
 
         .leaderboard-row:nth-child(3) {
-            background: rgba(205,127,50,0.13);
+            background:
+                rgba(205,127,50,0.13);
         }
 
         .rank {
@@ -488,40 +765,57 @@
 
         .leader-name {
             text-align: left;
+
             overflow: hidden;
+
             text-overflow: ellipsis;
+
             white-space: nowrap;
         }
 
         .leader-score {
             font-weight: bold;
+
             white-space: nowrap;
         }
 
         #leaderboardStatus {
             margin-top: 15px;
+
             font-size: 13px;
-            color: rgba(255,255,255,0.65);
+
+            color:
+                rgba(255,255,255,0.65);
         }
 
+
+        /* =========================
+           HANDY
+        ========================= */
+
         @media (max-width: 700px) {
+
             .side-menu {
                 left: 18px;
+
                 gap: 26px;
             }
 
             .side-menu a {
                 font-size: 12px;
+
                 letter-spacing: 3px;
             }
 
             .title h1 {
                 font-size: 34px;
+
                 letter-spacing: 8px;
             }
 
             .glass-box {
                 width: 94%;
+
                 padding: 25px 18px;
             }
 
@@ -535,7 +829,9 @@
 
             .game-object {
                 width: 56px;
+
                 height: 56px;
+
                 font-size: 40px;
             }
 
@@ -544,14 +840,23 @@
             }
 
             .leaderboard-row {
-                grid-template-columns: 35px 1fr auto;
+                grid-template-columns:
+                    35px 1fr auto;
+
                 font-size: 14px;
             }
         }
+
     </style>
 </head>
 
+
 <body>
+
+
+<!-- =========================
+     HINTERGRUND
+========================= -->
 
 <img
     class="background"
@@ -561,30 +866,69 @@
 
 <div class="overlay"></div>
 
+
+<!-- =========================
+     MENÜ
+========================= -->
+
 <nav class="side-menu">
-    <a href="#home">HOME</a>
-    <a href="#quiz">QUIZ</a>
-    <a href="#game">SPIEL</a>
+
+    <a href="#home">
+        HOME
+    </a>
+
+    <a href="#quiz">
+        QUIZ
+    </a>
+
+    <a href="#game">
+        SPIEL
+    </a>
+
 </nav>
 
+
+<!-- =========================
+     HOME
+========================= -->
+
 <section id="home">
+
     <div class="title">
-        <h1>Sea Coast</h1>
+
+        <h1>
+            Sea Coast
+        </h1>
+
         <div class="line"></div>
+
         <div class="subtitle">
             Explore · Discover · Enjoy
         </div>
+
     </div>
+
 </section>
 
+
+<!-- =========================
+     QUIZ
+========================= -->
+
 <section id="quiz">
+
     <div class="glass-box">
 
-        <h2>Ocean Quiz</h2>
+        <h2>
+            Ocean Quiz
+        </h2>
 
         <div id="counter"></div>
+
         <div id="question"></div>
+
         <div id="answers"></div>
+
         <div id="message"></div>
 
         <button
@@ -604,38 +948,58 @@
         </button>
 
     </div>
+
 </section>
 
+
+<!-- =========================
+     SPIEL
+========================= -->
+
 <section id="game">
+
     <div class="glass-box">
 
-        <h2>Sea Hunt</h2>
+        <h2>
+            Sea Hunt
+        </h2>
 
         <p>
             Sammle in 30 Sekunden so viele Punkte wie möglich.
         </p>
 
+
+        <!-- PUNKTEERKLÄRUNG -->
+
         <div class="legend">
 
             <div class="legend-item">
-                🐚 Muschel = <strong>+1</strong>
+                🐚 Muschel
+                <strong>+1</strong>
             </div>
 
             <div class="legend-item">
-                🐙 Lila Octopus = <strong>+2</strong>
+                🐙 Lila Octopus
+                <strong>+2</strong>
             </div>
 
             <div class="legend-item">
-                ⭐ Goldener Seestern = <strong>+5</strong>
+                ⭐ Goldener Seestern
+                <strong>+5</strong>
             </div>
 
             <div class="legend-item">
-                🦀 Feuerrote Krabbe = <strong>−3</strong>
+                🦀 Feuerrote Krabbe
+                <strong>−3</strong>
             </div>
 
         </div>
 
+
+        <!-- NAME -->
+
         <div class="name-area">
+
             <input
                 id="playerName"
                 class="name-input"
@@ -644,21 +1008,32 @@
                 autocomplete="off"
                 placeholder="Dein Name"
             >
+
         </div>
+
+
+        <!-- PUNKTE / ZEIT -->
 
         <div class="game-info">
 
             <div>
                 PUNKTE:
-                <strong id="gameScore">0</strong>
+                <strong id="gameScore">
+                    0
+                </strong>
             </div>
 
             <div>
                 ZEIT:
-                <strong id="gameTime">30</strong>
+                <strong id="gameTime">
+                    30
+                </strong>
             </div>
 
         </div>
+
+
+        <!-- START -->
 
         <button
             id="gameStartButton"
@@ -668,114 +1043,138 @@
             SPIEL STARTEN
         </button>
 
+
+        <!-- SPIELFELD -->
+
         <div
             class="game-area"
             id="gameArea"
         >
-
-            <div
-                class="game-object"
-                id="gameObject"
-                onclick="collectObject(event)"
-            >
-                🐚
-            </div>
-
         </div>
+
 
         <div id="gameMessage">
+
             Gib deinen Namen ein und starte das Spiel.
+
         </div>
+
+
+        <!-- LEADERBOARD -->
 
         <div class="leaderboard">
 
-            <h3>🏆 Top 10</h3>
+            <h3>
+                🏆 Top 10
+            </h3>
 
             <div
                 class="leaderboard-list"
                 id="leaderboardList"
-            ></div>
+            >
+            </div>
 
             <div id="leaderboardStatus">
+
                 Leaderboard wird geladen...
+
             </div>
 
         </div>
 
     </div>
+
 </section>
+
 
 <script>
 
-/* =========================
+
+/* =====================================================
    SUPABASE
-========================= */
+===================================================== */
 
 const SUPABASE_URL =
     "https://iyhnmnzswsqxwezzsmao.supabase.co";
+
 
 const SUPABASE_KEY =
     "sb_publishable_V3R_-pYm73k2KmESn9HgMA_7qWdw23w";
 
 
-/* =========================
+/* =====================================================
    QUIZ
-========================= */
+===================================================== */
 
 const questions = [
 
     {
-        question: "Welcher ist der größte Ozean der Erde?",
+        question:
+            "Welcher ist der größte Ozean der Erde?",
+
         answers: [
             "Atlantischer Ozean",
             "Pazifischer Ozean",
             "Indischer Ozean",
             "Arktischer Ozean"
         ],
+
         correct: 1
     },
 
     {
-        question: "Wie viel Prozent der Erdoberfläche sind ungefähr von Wasser bedeckt?",
+        question:
+            "Wie viel Prozent der Erdoberfläche sind ungefähr von Wasser bedeckt?",
+
         answers: [
             "41 %",
             "55 %",
             "71 %",
             "89 %"
         ],
+
         correct: 2
     },
 
     {
-        question: "Welches ist das größte Tier der Erde?",
+        question:
+            "Welches ist das größte Tier der Erde?",
+
         answers: [
             "Weißer Hai",
             "Blauwal",
             "Riesenkalmar",
             "Orca"
         ],
+
         correct: 1
     },
 
     {
-        question: "Wie heißt die tiefste bekannte Stelle der Weltmeere?",
+        question:
+            "Wie heißt die tiefste bekannte Stelle der Weltmeere?",
+
         answers: [
             "Marianengraben",
             "Bermudadreieck",
             "Great Barrier Reef",
             "Atlantischer Graben"
         ],
+
         correct: 0
     },
 
     {
-        question: "Welches dieser Tiere ist kein Fisch?",
+        question:
+            "Welches dieser Tiere ist kein Fisch?",
+
         answers: [
             "Thunfisch",
             "Hai",
             "Delfin",
             "Seepferdchen"
         ],
+
         correct: 2
     }
 
@@ -783,7 +1182,9 @@ const questions = [
 
 
 let currentQuestion = 0;
+
 let score = 0;
+
 let answered = false;
 
 
@@ -791,7 +1192,10 @@ function showQuestion() {
 
     answered = false;
 
-    const q = questions[currentQuestion];
+
+    const q =
+        questions[currentQuestion];
+
 
     document.getElementById("counter").innerText =
         "FRAGE " +
@@ -799,85 +1203,144 @@ function showQuestion() {
         " VON " +
         questions.length;
 
+
     document.getElementById("question").innerText =
         q.question;
+
 
     document.getElementById("message").innerText =
         "";
 
+
     document.getElementById("nextButton").style.display =
         "none";
+
 
     document.getElementById("restartButton").style.display =
         "none";
 
+
     const answersDiv =
         document.getElementById("answers");
+
 
     answersDiv.innerHTML =
         "";
 
-    q.answers.forEach((answer, index) => {
 
-        const button =
-            document.createElement("button");
+    q.answers.forEach(
+        (answer, index) => {
 
-        button.className =
-            "answer";
 
-        button.innerText =
-            answer;
+            const button =
+                document.createElement(
+                    "button"
+                );
 
-        button.onclick = function() {
-            checkAnswer(index, button);
-        };
 
-        answersDiv.appendChild(button);
+            button.className =
+                "answer";
 
-    });
+
+            button.innerText =
+                answer;
+
+
+            button.onclick =
+                function() {
+
+
+                    checkAnswer(
+                        index,
+                        button
+                    );
+
+                };
+
+
+            answersDiv.appendChild(
+                button
+            );
+
+        }
+    );
+
 }
 
 
-function checkAnswer(index, selectedButton) {
+function checkAnswer(
+    index,
+    selectedButton
+) {
 
     if (answered) return;
 
-    answered = true;
+
+    answered =
+        true;
+
 
     const q =
         questions[currentQuestion];
 
+
     const buttons =
-        document.querySelectorAll(".answer");
+        document.querySelectorAll(
+            ".answer"
+        );
 
 
-    if (index === q.correct) {
+    if (
+        index ===
+        q.correct
+    ) {
 
-        selectedButton.classList.add("correct");
+        selectedButton.classList.add(
+            "correct"
+        );
+
 
         document.getElementById("message").innerText =
             "✓ Richtig!";
 
+
         score++;
 
-    } else {
+    }
 
-        selectedButton.classList.add("wrong");
+    else {
 
-        buttons[q.correct].classList.add("correct");
+        selectedButton.classList.add(
+            "wrong"
+        );
+
+
+        buttons[
+            q.correct
+        ].classList.add(
+            "correct"
+        );
+
 
         document.getElementById("message").innerText =
             "✕ Leider falsch.";
+
     }
 
 
-    buttons.forEach(button => {
-        button.disabled = true;
-    });
+    buttons.forEach(
+        button => {
+
+            button.disabled =
+                true;
+
+        }
+    );
 
 
     document.getElementById("nextButton").style.display =
         "block";
+
 }
 
 
@@ -885,14 +1348,22 @@ function nextQuestion() {
 
     currentQuestion++;
 
-    if (currentQuestion < questions.length) {
+
+    if (
+        currentQuestion <
+        questions.length
+    ) {
 
         showQuestion();
 
-    } else {
+    }
+
+    else {
 
         showResult();
+
     }
+
 }
 
 
@@ -901,57 +1372,92 @@ function showResult() {
     document.getElementById("counter").innerText =
         "";
 
+
     document.getElementById("question").innerText =
         "Quiz beendet!";
+
 
     document.getElementById("answers").innerHTML =
         "";
 
 
-    let rating = "";
+    let rating =
+        "";
 
 
-    if (score === 5) {
-        rating = "Ocean Expert 🌊";
-    } else if (score >= 3) {
-        rating = "Sehr gut!";
-    } else {
-        rating = "Da geht noch was!";
+    if (
+        score === 5
+    ) {
+
+        rating =
+            "Ocean Expert 🌊";
+
+    }
+
+    else if (
+        score >= 3
+    ) {
+
+        rating =
+            "Sehr gut!";
+
+    }
+
+    else {
+
+        rating =
+            "Da geht noch was!";
+
     }
 
 
     document.getElementById("message").innerHTML =
+
         "Du hast <strong>" +
+
         score +
+
         " von " +
+
         questions.length +
+
         "</strong> Fragen richtig.<br><br>" +
+
         rating;
 
 
     document.getElementById("nextButton").style.display =
         "none";
 
+
     document.getElementById("restartButton").style.display =
         "block";
+
 }
 
 
 function restartQuiz() {
 
-    currentQuestion = 0;
-    score = 0;
+    currentQuestion =
+        0;
+
+
+    score =
+        0;
+
 
     showQuestion();
+
 }
 
 
 showQuestion();
 
 
-/* =========================
+
+/* =====================================================
    SPIEL
-========================= */
+===================================================== */
 
 const gameObjects = [
 
@@ -982,87 +1488,175 @@ const gameObjects = [
 ];
 
 
-let gameScore = 0;
-let gameTime = 30;
-let gameRunning = false;
-let gameTimer = null;
-let currentPlayerName = "";
-let currentObject = gameObjects[0];
+let gameScore =
+    0;
 
+
+let gameTime =
+    30;
+
+
+let gameRunning =
+    false;
+
+
+let gameTimer =
+    null;
+
+
+let spawnTimer =
+    null;
+
+
+let currentPlayerName =
+    "";
+
+
+/* =====================================================
+   SPIEL STARTEN
+===================================================== */
 
 function startGame() {
 
-    if (gameRunning) return;
+    if (
+        gameRunning
+    ) return;
 
 
     const input =
-        document.getElementById("playerName");
+        document.getElementById(
+            "playerName"
+        );
 
 
     const name =
         input.value.trim();
 
 
-    if (name.length < 2) {
+    if (
+        name.length < 2
+    ) {
 
         document.getElementById("gameMessage").innerText =
             "Bitte gib zuerst einen Namen mit mindestens 2 Zeichen ein.";
 
+
         input.focus();
 
+
         return;
+
     }
 
 
     currentPlayerName =
-        name.substring(0, 20);
+        name.substring(
+            0,
+            20
+        );
 
 
-    gameRunning = true;
-    gameScore = 0;
-    gameTime = 30;
+    gameRunning =
+        true;
+
+
+    gameScore =
+        0;
+
+
+    gameTime =
+        30;
 
 
     document.getElementById("gameScore").innerText =
         gameScore;
 
+
     document.getElementById("gameTime").innerText =
         gameTime;
+
 
     document.getElementById("gameMessage").innerText =
         "Los geht's, " +
         currentPlayerName +
-        "! Sammle Punkte und meide die Krabbe!";
+        "! Sammle Punkte und meide die Krabben!";
 
 
     document.getElementById("gameStartButton").innerText =
         "SPIEL LÄUFT";
 
+
     document.getElementById("gameStartButton").disabled =
         true;
+
 
     input.disabled =
         true;
 
 
-    moveGameObject();
+    document.getElementById("gameArea").innerHTML =
+        "";
 
+
+    /*
+       Erste Objekte erscheinen
+       leicht zeitversetzt
+    */
+
+    spawnObject();
+
+
+    setTimeout(
+        spawnObject,
+        450
+    );
+
+
+    setTimeout(
+        spawnObject,
+        950
+    );
+
+
+    /*
+       30 Sekunden Timer
+    */
 
     gameTimer =
-        setInterval(function() {
+        setInterval(
+            function() {
 
-            gameTime--;
 
-            document.getElementById("gameTime").innerText =
-                gameTime;
+                gameTime--;
 
-            if (gameTime <= 0) {
-                endGame();
-            }
 
-        }, 1000);
+                document.getElementById("gameTime").innerText =
+                    gameTime;
+
+
+                if (
+                    gameTime <= 0
+                ) {
+
+                    endGame();
+
+                }
+
+
+            },
+            1000
+        );
+
+
+    scheduleNextSpawn();
+
 }
 
+
+
+/* =====================================================
+   OBJEKT AUSWÄHLEN
+===================================================== */
 
 function chooseRandomObject() {
 
@@ -1071,110 +1665,271 @@ function chooseRandomObject() {
 
 
     /*
-       Wahrscheinlichkeiten:
-       Muschel 45 %
-       Octopus 30 %
-       Seestern 15 %
-       Krabbe 10 %
+        Wahrscheinlichkeit:
+
+        Muschel   45 %
+        Octopus   30 %
+        Seestern  15 %
+        Krabbe    10 %
     */
 
-    if (random < 0.45) {
+
+    if (
+        random < 0.45
+    ) {
+
         return gameObjects[0];
+
     }
 
-    if (random < 0.75) {
+
+    if (
+        random < 0.75
+    ) {
+
         return gameObjects[1];
+
     }
 
-    if (random < 0.90) {
+
+    if (
+        random < 0.90
+    ) {
+
         return gameObjects[2];
+
     }
+
 
     return gameObjects[3];
+
 }
 
 
-function moveGameObject() {
 
-    if (!gameRunning) return;
+/* =====================================================
+   OBJEKT ERZEUGEN
+===================================================== */
+
+function spawnObject() {
+
+    if (
+        !gameRunning
+    ) return;
 
 
     const area =
-        document.getElementById("gameArea");
+        document.getElementById(
+            "gameArea"
+        );
 
-    const object =
-        document.getElementById("gameObject");
+
+    /*
+       Maximal 5 Symbole
+       gleichzeitig
+    */
+
+    if (
+        area.querySelectorAll(
+            ".game-object"
+        ).length >= 5
+    ) {
+
+        return;
+
+    }
 
 
-    currentObject =
+    const objectData =
         chooseRandomObject();
 
 
-    object.innerText =
-        currentObject.emoji;
+    const object =
+        document.createElement(
+            "div"
+        );
 
 
     object.className =
         "game-object " +
-        currentObject.className;
+        objectData.className;
 
 
-    const objectSize = 70;
+    object.innerText =
+        objectData.emoji;
+
+
+    object.dataset.points =
+        objectData.points;
+
+
+    /*
+       Zufällige Position
+    */
+
+    const objectSize =
+        70;
 
 
     const maxX =
         Math.max(
             0,
-            area.clientWidth - objectSize
+            area.clientWidth -
+            objectSize
         );
 
 
     const maxY =
         Math.max(
             0,
-            area.clientHeight - objectSize
+            area.clientHeight -
+            objectSize
         );
 
 
-    const randomX =
-        Math.random() * maxX;
-
-
-    const randomY =
-        Math.random() * maxY;
-
-
     object.style.left =
-        randomX + "px";
+        Math.random() *
+        maxX +
+        "px";
 
 
     object.style.top =
-        randomY + "px";
+        Math.random() *
+        maxY +
+        "px";
 
 
-    object.style.animation =
-        "none";
+    object.onclick =
+        function(event) {
 
 
-    void object.offsetWidth;
+            collectObject(
+                event,
+                object
+            );
+
+        };
 
 
-    object.style.animation =
-        "objectPop 0.20s ease-out";
+    area.appendChild(
+        object
+    );
 
 
-    object.style.display =
-        "flex";
+    /*
+       Symbol bleibt zwischen
+       ca. 1,8 und maximal 3 Sekunden.
+    */
+
+    const visibleTime =
+        1800 +
+        Math.random() *
+        1200;
+
+
+    setTimeout(
+        function() {
+
+
+            if (
+                object &&
+                object.parentNode
+            ) {
+
+
+                object.classList.add(
+                    "object-disappear"
+                );
+
+
+                setTimeout(
+                    function() {
+
+
+                        if (
+                            object &&
+                            object.parentNode
+                        ) {
+
+                            object.remove();
+
+                        }
+
+
+                    },
+                    250
+                );
+
+            }
+
+
+        },
+        visibleTime
+    );
+
 }
 
 
-function collectObject(event) {
 
-    if (!gameRunning) return;
+/* =====================================================
+   UNREGELMÄSSIGES ERSCHEINEN
+===================================================== */
+
+function scheduleNextSpawn() {
+
+    if (
+        !gameRunning
+    ) return;
+
+
+    /*
+       Zufällige Pause
+       zwischen ca. 350 und 1100 ms
+    */
+
+    const delay =
+        350 +
+        Math.random() *
+        750;
+
+
+    spawnTimer =
+        setTimeout(
+            function() {
+
+
+                spawnObject();
+
+
+                scheduleNextSpawn();
+
+
+            },
+            delay
+        );
+
+}
+
+
+
+/* =====================================================
+   OBJEKT ANGEKLICKT
+===================================================== */
+
+function collectObject(
+    event,
+    object
+) {
+
+    if (
+        !gameRunning
+    ) return;
 
 
     const points =
-        currentObject.points;
+        Number(
+            object.dataset.points
+        );
 
 
     gameScore +=
@@ -1191,14 +1946,25 @@ function collectObject(event) {
     );
 
 
-    moveGameObject();
+    object.remove();
+
 }
 
 
-function showPointPopup(event, points) {
+
+/* =====================================================
+   PUNKTEANIMATION
+===================================================== */
+
+function showPointPopup(
+    event,
+    points
+) {
 
     const area =
-        document.getElementById("gameArea");
+        document.getElementById(
+            "gameArea"
+        );
 
 
     const rect =
@@ -1206,45 +1972,64 @@ function showPointPopup(event, points) {
 
 
     const popup =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     popup.className =
         "point-popup";
 
 
-    if (points === 5) {
+    if (
+        points === 5
+    ) {
 
         popup.classList.add(
             "point-gold"
         );
 
-    } else if (points < 0) {
+    }
+
+    else if (
+        points < 0
+    ) {
 
         popup.classList.add(
             "point-negative"
         );
 
-    } else {
+    }
+
+    else {
 
         popup.classList.add(
             "point-positive"
         );
+
     }
 
 
     popup.innerText =
         points > 0
-        ? "+" + points
-        : points;
+            ? "+" + points
+            : points;
 
 
     popup.style.left =
-        (event.clientX - rect.left) + "px";
+        (
+            event.clientX -
+            rect.left
+        ) +
+        "px";
 
 
     popup.style.top =
-        (event.clientY - rect.top) + "px";
+        (
+            event.clientY -
+            rect.top
+        ) +
+        "px";
 
 
     area.appendChild(
@@ -1252,13 +2037,22 @@ function showPointPopup(event, points) {
     );
 
 
-    setTimeout(function() {
+    setTimeout(
+        function() {
 
-        popup.remove();
+            popup.remove();
 
-    }, 800);
+        },
+        800
+    );
+
 }
 
+
+
+/* =====================================================
+   SPIEL ENDE
+===================================================== */
 
 async function endGame() {
 
@@ -1267,12 +2061,17 @@ async function endGame() {
     );
 
 
+    clearTimeout(
+        spawnTimer
+    );
+
+
     gameRunning =
         false;
 
 
-    document.getElementById("gameObject").style.display =
-        "none";
+    document.getElementById("gameArea").innerHTML =
+        "";
 
 
     document.getElementById("gameStartButton").disabled =
@@ -1287,38 +2086,59 @@ async function endGame() {
         false;
 
 
-    let result = "";
+    let result =
+        "";
 
 
-    if (gameScore >= 60) {
+    if (
+        gameScore >= 70
+    ) {
 
         result =
             "Unglaublich! Sea Coast Champion! 🌊";
 
-    } else if (gameScore >= 40) {
+    }
+
+    else if (
+        gameScore >= 50
+    ) {
 
         result =
             "Sehr stark! ⭐";
 
-    } else if (gameScore >= 20) {
+    }
+
+    else if (
+        gameScore >= 30
+    ) {
 
         result =
             "Gut gemacht! 🐙";
 
-    } else {
+    }
+
+    else {
 
         result =
             "Beim nächsten Mal geht noch mehr!";
+
     }
 
 
     document.getElementById("gameMessage").innerHTML =
+
         "Zeit vorbei! <strong>" +
+
         currentPlayerName +
+
         "</strong> hat <strong>" +
+
         gameScore +
+
         " Punkte</strong> erreicht.<br>" +
+
         result +
+
         "<br><br>Spielstand wird gespeichert...";
 
 
@@ -1326,16 +2146,22 @@ async function endGame() {
         currentPlayerName,
         gameScore
     );
+
 }
 
 
-/* =========================
-   SPIELSTAND SPEICHERN
-========================= */
 
-async function saveScore(name, punkte) {
+/* =====================================================
+   SPIELSTAND SPEICHERN
+===================================================== */
+
+async function saveScore(
+    name,
+    punkte
+) {
 
     try {
+
 
         const response =
             await fetch(
@@ -1345,53 +2171,84 @@ async function saveScore(name, punkte) {
 
                 {
 
-                    method: "POST",
+                    method:
+                        "POST",
 
                     headers: {
-                        "apikey": SUPABASE_KEY,
-                        "Content-Type": "application/json",
-                        "Prefer": "return=minimal"
+
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Prefer":
+                            "return=minimal"
+
                     },
 
                     body:
                         JSON.stringify({
-                            name: name,
-                            punkte: punkte
+
+                            name:
+                                name,
+
+                            punkte:
+                                punkte
+
                         })
 
                 }
+
             );
 
 
-        if (!response.ok) {
+        if (
+            !response.ok
+        ) {
+
 
             const errorText =
                 await response.text();
+
 
             console.error(
                 "Supabase Fehler:",
                 errorText
             );
 
+
             throw new Error(
                 "Spielstand konnte nicht gespeichert werden."
             );
+
         }
 
 
         document.getElementById("gameMessage").innerHTML =
+
             "Zeit vorbei! <strong>" +
+
             name +
+
             "</strong> hat <strong>" +
+
             punkte +
+
             " Punkte</strong> erreicht." +
+
             "<br><br>✓ Spielstand gespeichert!";
 
 
         await loadLeaderboard();
 
 
-    } catch (error) {
+    }
+
+    catch (
+        error
+    ) {
+
 
         console.error(
             error
@@ -1399,26 +2256,37 @@ async function saveScore(name, punkte) {
 
 
         document.getElementById("gameMessage").innerHTML =
+
             "Du hast <strong>" +
+
             punkte +
+
             " Punkte</strong> erreicht." +
+
             "<br><br>⚠ Der Spielstand konnte leider nicht gespeichert werden.";
+
     }
+
 }
 
 
-/* =========================
+
+/* =====================================================
    TOP 10 LADEN
-========================= */
+===================================================== */
 
 async function loadLeaderboard() {
 
     const leaderboardList =
-        document.getElementById("leaderboardList");
+        document.getElementById(
+            "leaderboardList"
+        );
 
 
     const status =
-        document.getElementById("leaderboardStatus");
+        document.getElementById(
+            "leaderboardStatus"
+        );
 
 
     status.innerText =
@@ -1427,11 +2295,17 @@ async function loadLeaderboard() {
 
     try {
 
+
         const url =
+
             SUPABASE_URL +
+
             "/rest/v1/Leaderboard" +
+
             "?select=name,punkte,created_at" +
+
             "&order=punkte.desc,created_at.asc" +
+
             "&limit=10";
 
 
@@ -1442,17 +2316,25 @@ async function loadLeaderboard() {
 
                 {
 
-                    method: "GET",
+                    method:
+                        "GET",
 
                     headers: {
-                        "apikey": SUPABASE_KEY
+
+                        "apikey":
+                            SUPABASE_KEY
+
                     }
 
                 }
+
             );
 
 
-        if (!response.ok) {
+        if (
+            !response.ok
+        ) {
+
 
             const errorText =
                 await response.text();
@@ -1467,6 +2349,7 @@ async function loadLeaderboard() {
             throw new Error(
                 "Leaderboard konnte nicht geladen werden."
             );
+
         }
 
 
@@ -1478,19 +2361,29 @@ async function loadLeaderboard() {
             "";
 
 
-        if (!data || data.length === 0) {
+        if (
+            !data ||
+            data.length === 0
+        ) {
+
 
             leaderboardList.innerHTML =
+
                 "<div style='opacity:0.7; padding:20px;'>" +
+
                 "Noch keine Spielstände vorhanden.<br>" +
+
                 "Sei der Erste! ⭐" +
+
                 "</div>";
 
 
             status.innerText =
                 "";
 
+
             return;
+
         }
 
 
@@ -1499,7 +2392,9 @@ async function loadLeaderboard() {
 
 
                 const row =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
 
                 row.className =
@@ -1507,26 +2402,55 @@ async function loadLeaderboard() {
 
 
                 const rank =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
 
                 rank.className =
                     "rank";
 
 
-                if (index === 0) {
-                    rank.innerText = "🥇";
-                } else if (index === 1) {
-                    rank.innerText = "🥈";
-                } else if (index === 2) {
-                    rank.innerText = "🥉";
-                } else {
-                    rank.innerText = (index + 1) + ".";
+                if (
+                    index === 0
+                ) {
+
+                    rank.innerText =
+                        "🥇";
+
+                }
+
+                else if (
+                    index === 1
+                ) {
+
+                    rank.innerText =
+                        "🥈";
+
+                }
+
+                else if (
+                    index === 2
+                ) {
+
+                    rank.innerText =
+                        "🥉";
+
+                }
+
+                else {
+
+                    rank.innerText =
+                        (index + 1) +
+                        ".";
+
                 }
 
 
                 const playerName =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
 
                 playerName.className =
@@ -1538,7 +2462,9 @@ async function loadLeaderboard() {
 
 
                 const playerScore =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
 
                 playerScore.className =
@@ -1550,9 +2476,19 @@ async function loadLeaderboard() {
                     " Punkte";
 
 
-                row.appendChild(rank);
-                row.appendChild(playerName);
-                row.appendChild(playerScore);
+                row.appendChild(
+                    rank
+                );
+
+
+                row.appendChild(
+                    playerName
+                );
+
+
+                row.appendChild(
+                    playerScore
+                );
 
 
                 leaderboardList.appendChild(
@@ -1567,7 +2503,12 @@ async function loadLeaderboard() {
             "Top 10 aller Spieler";
 
 
-    } catch (error) {
+    }
+
+    catch (
+        error
+    ) {
+
 
         console.error(
             error
@@ -1580,11 +2521,19 @@ async function loadLeaderboard() {
 
         status.innerText =
             "⚠ Leaderboard konnte nicht geladen werden.";
+
     }
+
 }
 
 
+
+/* =====================================================
+   LEADERBOARD BEIM LADEN
+===================================================== */
+
 loadLeaderboard();
+
 
 </script>
 
