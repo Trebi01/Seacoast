@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>SeaCoast</title>
 
     <style>
@@ -15,106 +16,157 @@
             scroll-behavior: smooth;
         }
 
-        html, body {
+        body {
             margin: 0;
-            width: 100%;
             min-height: 100%;
-            font-family: "Helvetica Neue", Arial, sans-serif;
             background: black;
+            color: white;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            overflow-x: hidden;
         }
 
 
-        /* =========================
-           HINTERGRUND
-        ========================= */
+        /* =====================================================
+           HINTERGRÜNDE / CROSSFADE
+        ===================================================== */
 
-        .background {
+        .background-layer {
             position: fixed;
             inset: 0;
+
             width: 100%;
             height: 100%;
+
             object-fit: cover;
+
+            pointer-events: none;
+
+            transition:
+                opacity 1.5s ease,
+                transform 8s ease;
+
             z-index: 0;
-            animation: oceanZoom 18s ease-in-out infinite alternate;
         }
 
-        .overlay {
+        .coast-background {
+            opacity: 1;
+
+            background:
+                url("pexels-white-noiise-77351716-29027466.jpg")
+                center center / cover no-repeat;
+
+            transform: scale(1.02);
+        }
+
+        .underwater-background {
+            opacity: 0;
+
+            background:
+                url("turtle-underwater-bg.jpg")
+                center center / cover no-repeat;
+
+            transform: scale(1.05);
+        }
+
+        body.underwater-mode .coast-background {
+            opacity: 0;
+            transform: scale(1.06);
+        }
+
+        body.underwater-mode .underwater-background {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .global-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.28);
+
+            background: rgba(0,0,0,0.25);
+
+            pointer-events: none;
+
             z-index: 1;
+
+            transition: background 1.5s ease;
         }
 
-        @keyframes oceanZoom {
-            from { transform: scale(1); }
-            to { transform: scale(1.06); }
+        body.underwater-mode .global-overlay {
+            background: rgba(0,20,35,0.12);
         }
 
 
-        /* =========================
-           SOUND BUTTON
-        ========================= */
+        /* =====================================================
+           SOUND
+        ===================================================== */
 
         .sound-toggle {
             position: fixed;
-            top: 25px;
-            right: 30px;
+
+            top: 24px;
+            right: 28px;
+
             z-index: 100;
 
             width: 46px;
             height: 46px;
 
-            border: 1px solid rgba(255,255,255,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             border-radius: 50%;
+
+            border: 1px solid rgba(255,255,255,0.35);
 
             background: rgba(0,0,0,0.22);
 
             backdrop-filter: blur(8px);
 
             color: white;
+
             font-size: 21px;
 
             cursor: pointer;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
 
             transition: 0.25s;
         }
 
         .sound-toggle:hover {
-            background: rgba(255,255,255,0.15);
-            border-color: white;
+            background: rgba(255,255,255,0.14);
             transform: scale(1.06);
         }
 
 
-        /* =========================
-           SEITENMENÜ
-        ========================= */
+        /* =====================================================
+           MENÜ
+        ===================================================== */
 
         .side-menu {
             position: fixed;
+
             left: 45px;
             top: 50%;
+
             transform: translateY(-50%);
-            z-index: 20;
+
+            z-index: 100;
 
             display: flex;
             flex-direction: column;
-            gap: 32px;
+
+            gap: 30px;
         }
 
         .side-menu a {
             position: relative;
 
-            color: rgba(255,255,255,0.78);
+            color: rgba(255,255,255,0.75);
+
             text-decoration: none;
 
-            font-size: 16px;
-            font-weight: 400;
-            letter-spacing: 5px;
+            font-size: 15px;
+            letter-spacing: 4px;
 
             transition: 0.3s;
         }
@@ -127,95 +179,94 @@
             left: -20px;
             top: 50%;
 
-            width: 0;
             height: 1px;
+            width: 0;
 
             background: white;
 
             transition: 0.3s;
         }
 
-        .side-menu a:hover {
+        .side-menu a:hover,
+        .side-menu a.active {
             color: white;
-            transform: translateX(10px);
+            transform: translateX(8px);
         }
 
-        .side-menu a:hover::before {
+        .side-menu a:hover::before,
+        .side-menu a.active::before {
             width: 12px;
         }
 
 
-        /* =========================
-           ABSCHNITTE
-        ========================= */
+        /* =====================================================
+           SECTIONS
+        ===================================================== */
 
         section {
             position: relative;
-            z-index: 2;
+
+            z-index: 5;
 
             min-height: 100vh;
-            width: 100%;
 
             display: flex;
             justify-content: center;
             align-items: center;
 
-            padding: 60px 20px;
+            padding: 70px 20px;
         }
 
 
-        /* =========================
+        /* =====================================================
            HOME
-        ========================= */
+        ===================================================== */
 
         #home {
-            flex-direction: column;
             text-align: center;
         }
 
-        .title {
-            color: white;
-            animation: titleAppear 1.5s ease-out forwards;
-        }
-
-        .title h1 {
+        .home-title h1 {
             margin: 0;
 
-            font-size: clamp(38px, 6vw, 78px);
             font-weight: 300;
-            letter-spacing: 16px;
+
+            font-size:
+                clamp(42px,7vw,85px);
+
+            letter-spacing:
+                clamp(8px,1.6vw,18px);
 
             text-transform: uppercase;
 
-            text-shadow: 0 2px 15px rgba(0,0,0,0.4);
+            text-shadow:
+                0 3px 25px rgba(0,0,0,0.45);
+
+            animation:
+                titleIn 1.5s ease forwards;
         }
 
-        .line {
-            width: 70px;
+        .home-line {
+            width: 75px;
             height: 1px;
 
-            margin: 20px auto;
+            margin: 22px auto;
 
-            background: rgba(255,255,255,0.9);
-
-            animation: lineGrow 1.5s ease-out 0.5s both;
+            background: white;
         }
 
-        .subtitle {
-            color: rgba(255,255,255,0.8);
+        .home-subtitle {
+            font-size: 13px;
 
             letter-spacing: 5px;
-            font-size: 13px;
-            font-weight: 300;
+
+            color: rgba(255,255,255,0.8);
 
             text-transform: uppercase;
-
-            opacity: 0;
-
-            animation: fadeUp 1.4s ease-out 1s forwards;
         }
 
-        @keyframes titleAppear {
+        @keyframes titleIn {
+
             from {
                 opacity: 0;
                 transform: translateY(-25px);
@@ -225,88 +276,71 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
 
-        @keyframes lineGrow {
-            from {
-                width: 0;
-                opacity: 0;
-            }
-
-            to {
-                width: 70px;
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
 
-        /* =========================
-           GLASBOX
-        ========================= */
+        /* =====================================================
+           GLASS BOX
+        ===================================================== */
 
         .glass-box {
-            width: min(90%, 680px);
+            width: min(90%,680px);
 
             padding: 35px;
 
-            color: white;
             text-align: center;
 
-            background: rgba(0,0,0,0.55);
+            background:
+                rgba(0,0,0,0.52);
 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter:
+                blur(12px);
 
-            border: 1px solid rgba(255,255,255,0.25);
+            -webkit-backdrop-filter:
+                blur(12px);
+
+            border:
+                1px solid rgba(255,255,255,0.22);
+
             border-radius: 20px;
 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-
-            animation: fadeUp 1s ease-out;
+            box-shadow:
+                0 15px 50px rgba(0,0,0,0.35);
         }
 
         .glass-box h2 {
             margin-top: 0;
 
-            font-size: 25px;
             font-weight: 300;
+
             letter-spacing: 6px;
 
             text-transform: uppercase;
         }
 
 
-        /* =========================
-           BUTTONS
-        ========================= */
+        /* =====================================================
+           BUTTON
+        ===================================================== */
 
         .main-button {
             margin: 20px auto 0;
 
             padding: 12px 28px;
 
-            border: 1px solid white;
+            border:
+                1px solid rgba(255,255,255,0.8);
+
             border-radius: 30px;
 
             background: transparent;
+
             color: white;
 
-            font-size: 14px;
-            letter-spacing: 2px;
-
             cursor: pointer;
+
+            letter-spacing: 2px;
 
             transition: 0.25s;
         }
@@ -316,45 +350,47 @@
             color: black;
         }
 
-        .main-button:disabled {
-            opacity: 0.5;
-            cursor: default;
-        }
 
-
-        /* =========================
+        /* =====================================================
            QUIZ
-        ========================= */
+        ===================================================== */
 
         #counter {
-            opacity: 0.7;
-            font-size: 13px;
             margin-bottom: 20px;
+
+            opacity: 0.65;
+
+            font-size: 13px;
+
             letter-spacing: 2px;
         }
 
         #question {
-            font-size: 22px;
-            line-height: 1.4;
             margin-bottom: 25px;
+
+            font-size: 22px;
+
+            line-height: 1.5;
         }
 
         .answer {
-            display: block;
-
             width: 100%;
 
-            padding: 14px 18px;
-            margin: 12px 0;
+            display: block;
 
-            border: 1px solid rgba(255,255,255,0.5);
+            padding: 14px 18px;
+
+            margin: 11px 0;
+
             border-radius: 10px;
 
-            background: rgba(255,255,255,0.08);
+            border:
+                1px solid rgba(255,255,255,0.4);
+
+            background:
+                rgba(255,255,255,0.07);
 
             color: white;
-
-            font-size: 16px;
 
             cursor: pointer;
 
@@ -362,26 +398,20 @@
         }
 
         .answer:hover {
-            background: rgba(255,255,255,0.22);
             transform: translateY(-2px);
-        }
 
-        .answer:disabled {
-            cursor: default;
+            background:
+                rgba(255,255,255,0.18);
         }
 
         .correct {
-            background: rgba(30,160,90,0.65) !important;
+            background:
+                rgba(30,160,90,0.65) !important;
         }
 
         .wrong {
-            background: rgba(200,50,50,0.65) !important;
-        }
-
-        #message {
-            min-height: 30px;
-            margin-top: 20px;
-            font-size: 18px;
+            background:
+                rgba(200,50,50,0.65) !important;
         }
 
         #nextButton,
@@ -390,272 +420,468 @@
         }
 
 
-        /* =========================
+        /* =====================================================
            TIERVORSTELLUNG
-        ========================= */
+        ===================================================== */
 
-        .animal-box {
-            width: min(90%, 800px);
+        #animal {
+            overflow: hidden;
+
+            padding-left: 160px;
+            padding-right: 60px;
         }
 
-        .animal-subtitle {
-            color: rgba(255,255,255,0.70);
-            font-size: 14px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-        }
-
-        .turtle-stage {
+        .animal-wrapper {
             position: relative;
 
+            width: min(1180px,95vw);
+
+            min-height: 780px;
+        }
+
+        .animal-heading {
+            position: absolute;
+
+            top: 0;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            z-index: 15;
+
+            text-align: center;
+
+            pointer-events: none;
+        }
+
+        .animal-heading h2 {
+            margin: 0;
+
+            font-size: 30px;
+            font-weight: 300;
+
+            letter-spacing: 9px;
+
+            text-transform: uppercase;
+        }
+
+        .animal-heading p {
+            margin: 10px 0 0;
+
+            font-size: 14px;
+
+            letter-spacing: 5px;
+
+            color: rgba(255,255,255,0.78);
+        }
+
+
+        /* Schildkröte */
+
+        .turtle-container {
+            position: absolute;
+
+            left: 50%;
+            top: 51%;
+
+            width: min(760px,70vw);
+
+            transform:
+                translate(-50%,-50%);
+
+            z-index: 8;
+
+            animation:
+                turtleFloat
+                6s ease-in-out infinite;
+        }
+
+        .turtle-image {
             width: 100%;
-            min-height: 260px;
+
+            display: block;
+
+            user-select: none;
+
+            pointer-events: none;
+
+            filter:
+                drop-shadow(
+                    0 20px 35px
+                    rgba(0,0,0,0.35)
+                );
+        }
+
+        @keyframes turtleFloat {
+
+            0%,
+            100% {
+                transform:
+                    translate(-50%,-50%)
+                    translateY(0)
+                    rotate(-1deg);
+            }
+
+            50% {
+                transform:
+                    translate(-50%,-50%)
+                    translateY(-10px)
+                    rotate(1deg);
+            }
+
+        }
+
+
+        /* klickbare Körpersegmente */
+
+        .hotspot {
+            position: absolute;
+
+            z-index: 16;
+
+            border:
+                1px solid rgba(110,235,255,0.15);
+
+            background:
+                rgba(70,220,245,0.01);
+
+            cursor: pointer;
+
+            transition:
+                border 0.25s,
+                background 0.25s,
+                box-shadow 0.25s;
+        }
+
+        .hotspot:hover,
+        .hotspot.active {
+            border:
+                1px solid rgba(120,235,255,0.55);
+
+            background:
+                rgba(70,220,245,0.08);
+
+            box-shadow:
+                inset 0 0 18px
+                rgba(80,220,255,0.06);
+        }
+
+
+        /* Positionen relativ zur Schildkröte */
+
+        .hotspot-head {
+            left: 5%;
+            top: 17%;
+
+            width: 20%;
+            height: 27%;
+
+            border-radius: 50%;
+        }
+
+        .hotspot-shell {
+            left: 34%;
+            top: 11%;
+
+            width: 47%;
+            height: 42%;
+
+            border-radius: 48%;
+        }
+
+        .hotspot-flipper {
+            left: 32%;
+            top: 47%;
+
+            width: 27%;
+            height: 45%;
+
+            transform: rotate(20deg);
+
+            border-radius: 50%;
+        }
+
+        .hotspot-breathing {
+            left: 22%;
+            top: 29%;
+
+            width: 19%;
+            height: 25%;
+
+            border-radius: 50%;
+        }
+
+
+        /* Punkt */
+
+        .hotspot-dot {
+            position: absolute;
+
+            width: 11px;
+            height: 11px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(180,245,255,0.9);
+
+            border:
+                2px solid white;
+
+            opacity: 0;
+
+            top: 50%;
+            left: 50%;
+
+            transform:
+                translate(-50%,-50%);
+
+            transition:
+                0.25s;
+
+            box-shadow:
+                0 0 0 5px
+                rgba(80,220,255,0.08);
+        }
+
+        .hotspot:hover .hotspot-dot,
+        .hotspot.active .hotspot-dot {
+            opacity: 1;
+        }
+
+
+        /* SVG Verbindungslinien */
+
+        .animal-lines {
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            z-index: 10;
+
+            pointer-events: none;
+        }
+
+        .info-line {
+            fill: none;
+
+            stroke:
+                rgba(180,245,255,0.9);
+
+            stroke-width: 1.4;
+
+            stroke-linecap: round;
+
+            stroke-dasharray: 500;
+
+            stroke-dashoffset: 500;
+
+            opacity: 0;
+
+            filter:
+                drop-shadow(
+                    0 0 3px
+                    rgba(80,220,255,0.6)
+                );
+
+            transition:
+                opacity 0.2s;
+        }
+
+        .info-line.active {
+            opacity: 1;
+
+            animation:
+                drawLine
+                0.75s ease forwards;
+        }
+
+        @keyframes drawLine {
+
+            from {
+                stroke-dashoffset: 500;
+            }
+
+            to {
+                stroke-dashoffset: 0;
+            }
+
+        }
+
+
+        /* Infokarten */
+
+        .animal-card {
+            position: absolute;
+
+            width: 245px;
+
+            padding: 20px;
+
+            z-index: 14;
+
+            border:
+                1px solid rgba(120,225,245,0.45);
+
+            border-radius: 16px;
+
+            background:
+                rgba(0,35,55,0.78);
+
+            backdrop-filter:
+                blur(10px);
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transform:
+                translateY(8px)
+                scale(0.98);
+
+            transition:
+                opacity 0.35s,
+                transform 0.35s;
+        }
+
+        .animal-card.active {
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        .animal-card h3 {
+            margin:
+                0 0 10px;
+
+            color:
+                rgb(110,230,245);
+
+            font-size: 17px;
+
+            letter-spacing: 2px;
+
+            font-weight: 400;
+        }
+
+        .animal-card p {
+            margin: 0;
+
+            color:
+                rgba(255,255,255,0.88);
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+
+        .card-head {
+            left: 0;
+            top: 140px;
+        }
+
+        .card-shell {
+            right: 0;
+            top: 155px;
+        }
+
+        .card-flipper {
+            left: 15px;
+            bottom: 145px;
+        }
+
+        .card-breathing {
+            right: 15px;
+            bottom: 150px;
+        }
+
+
+        /* Fakten */
+
+        .fact-bar {
+            position: absolute;
+
+            left: 50%;
+            bottom: 20px;
+
+            transform:
+                translateX(-50%);
+
+            width:
+                min(950px,90%);
+
+            min-height: 75px;
+
+            z-index: 18;
 
             display: flex;
-            align-items: center;
-            justify-content: center;
 
-            margin: 20px 0;
+            align-items: center;
+
+            gap: 25px;
+
+            padding:
+                15px 25px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.24);
 
             border-radius: 18px;
 
             background:
-                radial-gradient(
-                    circle,
-                    rgba(80,180,170,0.18),
-                    rgba(0,40,60,0.08)
-                );
+                rgba(0,25,40,0.65);
 
-            overflow: hidden;
+            backdrop-filter:
+                blur(10px);
         }
 
-        .turtle {
-            font-size: 120px;
+        .fact-label {
+            white-space: nowrap;
 
-            cursor: pointer;
+            color:
+                rgb(115,230,245);
 
-            user-select: none;
+            letter-spacing: 2px;
 
-            animation: turtleSwim 5s ease-in-out infinite;
-
-            transition: 0.3s;
+            font-size: 13px;
         }
 
-        .turtle:hover {
-            transform: scale(1.12);
-        }
+        #animalFact {
+            flex: 1;
 
-        @keyframes turtleSwim {
-            0% {
-                transform: translateY(0) rotate(-3deg);
-            }
+            font-size: 14px;
 
-            50% {
-                transform: translateY(-12px) rotate(3deg);
-            }
+            line-height: 1.5;
 
-            100% {
-                transform: translateY(0) rotate(-3deg);
-            }
+            color:
+                rgba(255,255,255,0.88);
+
+            transition:
+                opacity 0.35s;
         }
 
 
-        /* BLASEN */
-
-        .bubble {
-            position: absolute;
-
-            border: 1px solid rgba(255,255,255,0.45);
-            border-radius: 50%;
-
-            opacity: 0;
-
-            animation: bubbleFloat 5s linear infinite;
-        }
-
-        .bubble.one {
-            width: 16px;
-            height: 16px;
-            left: 20%;
-            bottom: 15%;
-            animation-delay: 0s;
-        }
-
-        .bubble.two {
-            width: 10px;
-            height: 10px;
-            left: 70%;
-            bottom: 8%;
-            animation-delay: 1.6s;
-        }
-
-        .bubble.three {
-            width: 22px;
-            height: 22px;
-            left: 82%;
-            bottom: 20%;
-            animation-delay: 3s;
-        }
-
-        @keyframes bubbleFloat {
-            0% {
-                transform: translateY(0);
-                opacity: 0;
-            }
-
-            15% {
-                opacity: 0.7;
-            }
-
-            100% {
-                transform: translateY(-230px);
-                opacity: 0;
-            }
-        }
-
-
-        /* THEMEN-BUTTONS */
-
-        .animal-buttons {
-            display: grid;
-
-            grid-template-columns:
-                repeat(5, 1fr);
-
-            gap: 8px;
-
-            margin-top: 25px;
-        }
-
-        .animal-button {
-            padding: 11px 5px;
-
-            border: 1px solid rgba(255,255,255,0.25);
-
-            border-radius: 12px;
-
-            background: rgba(255,255,255,0.06);
-
-            color: white;
-
-            font-size: 12px;
-
-            letter-spacing: 1px;
-
-            cursor: pointer;
-
-            transition: 0.25s;
-        }
-
-        .animal-button:hover,
-        .animal-button.active {
-            background: rgba(255,255,255,0.18);
-
-            border-color: rgba(255,255,255,0.70);
-
-            transform: translateY(-2px);
-        }
-
-
-        /* INFO */
-
-        .animal-info {
-            min-height: 145px;
-
-            margin-top: 20px;
-
-            padding: 22px;
-
-            border-radius: 15px;
-
-            background: rgba(255,255,255,0.07);
-
-            border: 1px solid rgba(255,255,255,0.12);
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .animal-info h3 {
-            margin: 0 0 10px;
-
-            font-weight: 400;
-
-            letter-spacing: 3px;
-
-            font-size: 18px;
-
-            text-transform: uppercase;
-        }
-
-        .animal-info p {
-            margin: 0;
-
-            line-height: 1.7;
-
-            color: rgba(255,255,255,0.85);
-        }
-
-
-        /* RANDOM FACT */
-
-        .fact-box {
-            margin-top: 20px;
-
-            min-height: 50px;
-
-            color: rgba(255,255,255,0.88);
-
-            font-size: 15px;
-
-            line-height: 1.6;
-        }
-
-
-        /* =========================
-           NAME
-        ========================= */
-
-        .name-area {
-            margin-top: 25px;
-            margin-bottom: 15px;
-        }
-
-        .name-input {
-            width: min(100%,350px);
-
-            padding: 13px 18px;
-
-            text-align: center;
-
-            border-radius: 30px;
-
-            border: 1px solid rgba(255,255,255,0.5);
-
-            background: rgba(255,255,255,0.10);
-
-            color: white;
-
-            outline: none;
-
-            font-size: 16px;
-        }
-
-
-        /* =========================
+        /* =====================================================
            SPIEL
-        ========================= */
+        ===================================================== */
 
         .legend {
             display: grid;
 
-            grid-template-columns: repeat(2,1fr);
+            grid-template-columns:
+                repeat(2,1fr);
 
             gap: 10px;
 
-            margin: 25px 0 15px;
+            margin:
+                25px 0 15px;
         }
 
         .legend-item {
@@ -663,11 +889,37 @@
 
             border-radius: 12px;
 
-            background: rgba(255,255,255,0.06);
+            background:
+                rgba(255,255,255,0.06);
 
-            border: 1px solid rgba(255,255,255,0.10);
+            border:
+                1px solid
+                rgba(255,255,255,0.1);
 
             font-size: 14px;
+        }
+
+        .name-input {
+            width: min(100%,350px);
+
+            padding: 13px 18px;
+
+            border-radius: 30px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.5);
+
+            background:
+                rgba(255,255,255,0.1);
+
+            color: white;
+
+            text-align: center;
+
+            outline: none;
+
+            font-size: 16px;
         }
 
         .game-info {
@@ -675,12 +927,7 @@
 
             justify-content: space-between;
 
-            gap: 20px;
-
-            margin-top: 20px;
-            margin-bottom: 18px;
-
-            font-size: 15px;
+            margin-top: 25px;
 
             letter-spacing: 2px;
         }
@@ -688,113 +935,97 @@
         .game-area {
             position: relative;
 
-            width: 100%;
             height: 360px;
-
-            overflow: hidden;
 
             margin-top: 20px;
 
-            border: 1px solid rgba(255,255,255,0.35);
+            overflow: hidden;
 
             border-radius: 16px;
 
+            border:
+                1px solid
+                rgba(255,255,255,0.35);
+
             background:
                 linear-gradient(
-                    to bottom,
-                    rgba(30,110,150,0.30),
-                    rgba(20,80,110,0.25),
-                    rgba(210,180,120,0.18)
+                    rgba(20,100,140,0.3),
+                    rgba(20,65,90,0.25),
+                    rgba(200,170,110,0.15)
                 );
         }
 
         .game-object {
             position: absolute;
 
-            width: 64px;
-            height: 64px;
+            width: 62px;
+            height: 62px;
 
             display: flex;
 
-            align-items: center;
             justify-content: center;
+            align-items: center;
 
-            font-size: 48px;
+            font-size: 47px;
 
             cursor: pointer;
 
             user-select: none;
 
-            background: none;
-
-            animation: objectPop 0.20s ease-out;
-        }
-
-        .game-object:hover {
-            transform: scale(1.15);
-        }
-
-        .shell-object {
-            filter:
-                saturate(0.85)
-                brightness(1.08);
+            animation:
+                objectPop
+                0.2s ease-out;
         }
 
         .octopus-object {
             filter:
                 hue-rotate(245deg)
-                saturate(2.3)
-                brightness(1.05);
+                saturate(2.3);
         }
 
         .star-object {
             filter:
                 sepia(1)
-                saturate(4.5)
-                brightness(1.15);
+                saturate(4.5);
         }
 
         .crab-object {
             filter:
                 saturate(2.7)
-                hue-rotate(-12deg)
-                brightness(1.05);
+                hue-rotate(-12deg);
         }
 
         @keyframes objectPop {
+
             from {
-                transform: scale(0.4);
                 opacity: 0;
+                transform: scale(0.3);
             }
 
             to {
-                transform: scale(1);
                 opacity: 1;
+                transform: scale(1);
             }
+
         }
 
         .object-disappear {
             animation:
                 objectDisappear
-                0.25s
-                ease-in
-                forwards !important;
+                0.25s forwards;
         }
 
         @keyframes objectDisappear {
-            from {
-                opacity: 1;
-                transform: scale(1);
-            }
 
             to {
                 opacity: 0;
-                transform: scale(0.4);
+                transform: scale(0.3);
             }
+
         }
 
 
-        /* TOUCH-WELLE */
+        /* Ripple */
 
         .touch-wave {
             position: absolute;
@@ -802,99 +1033,68 @@
             width: 20px;
             height: 20px;
 
-            border: 2px solid rgba(255,255,255,0.70);
-
             border-radius: 50%;
+
+            border:
+                2px solid
+                rgba(255,255,255,0.75);
+
+            transform:
+                translate(-50%,-50%);
 
             pointer-events: none;
 
-            z-index: 25;
-
-            transform:
-                translate(-50%,-50%)
-                scale(0.2);
-
             animation:
-                touchWave
-                0.65s
-                ease-out
-                forwards;
+                ripple
+                0.65s forwards;
         }
 
-        @keyframes touchWave {
-            0% {
+        @keyframes ripple {
+
+            from {
+                opacity: 1;
                 transform:
                     translate(-50%,-50%)
                     scale(0.2);
-
-                opacity: 0.9;
             }
 
-            100% {
+            to {
+                opacity: 0;
+
                 transform:
                     translate(-50%,-50%)
                     scale(4);
-
-                opacity: 0;
             }
+
         }
 
-
-        /* PUNKTE */
 
         .point-popup {
             position: absolute;
 
-            z-index: 30;
-
             pointer-events: none;
 
-            font-weight: 700;
-
-            font-size: 24px;
-
-            text-shadow:
-                0 2px 6px rgba(0,0,0,0.7);
+            font-size: 23px;
+            font-weight: bold;
 
             animation:
-                pointFloat
-                0.8s
-                ease-out
-                forwards;
+                popupPoints
+                0.8s forwards;
         }
 
-        .point-positive {
-            color: white;
-        }
-
-        .point-gold {
-            color: #ffd700;
-        }
-
-        .point-negative {
-            color: #ff3b30;
-        }
-
-        @keyframes pointFloat {
-            from {
-                transform:
-                    translateY(0)
-                    scale(0.8);
-
-                opacity: 1;
-            }
+        @keyframes popupPoints {
 
             to {
                 transform:
-                    translateY(-45px)
-                    scale(1.15);
+                    translateY(-45px);
 
                 opacity: 0;
             }
+
         }
 
 
-        /* COUNTDOWN */
+        /* Countdown */
 
         .countdown {
             position: absolute;
@@ -903,85 +1103,39 @@
 
             display: none;
 
-            align-items: center;
             justify-content: center;
+            align-items: center;
 
             z-index: 50;
 
-            font-size: 82px;
-
-            font-weight: 700;
-
-            color: white;
+            font-size: 80px;
+            font-weight: bold;
 
             text-shadow:
-                0 4px 20px rgba(0,0,0,0.7);
-
-            pointer-events: none;
+                0 4px 25px black;
         }
 
         .countdown.show {
             display: flex;
         }
 
-        .countdown-number {
-            animation:
-                countdownPop
-                0.75s
-                ease-out;
-        }
 
-        @keyframes countdownPop {
-            0% {
-                transform: scale(0.5);
-                opacity: 0;
-            }
-
-            30% {
-                transform: scale(1.15);
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 0;
-            }
-        }
-
-        #gameMessage {
-            min-height: 28px;
-
-            margin-top: 15px;
-
-            font-size: 17px;
-
-            line-height: 1.5;
-        }
-
-
-        /* =========================
+        /* =====================================================
            LEADERBOARD
-        ========================= */
+        ===================================================== */
 
         .leaderboard {
             margin-top: 35px;
 
-            padding-top: 25px;
-
             border-top:
-                1px solid rgba(255,255,255,0.20);
-        }
+                1px solid
+                rgba(255,255,255,0.2);
 
-        .leaderboard h3 {
-            font-weight: 300;
-
-            letter-spacing: 4px;
-
-            font-size: 17px;
+            padding-top: 25px;
         }
 
         .leaderboard-list {
-            max-width: 470px;
+            max-width: 480px;
 
             margin: 20px auto;
         }
@@ -992,11 +1146,9 @@
             grid-template-columns:
                 45px 1fr auto;
 
-            align-items: center;
-
             gap: 10px;
 
-            padding: 11px 12px;
+            padding: 10px 12px;
 
             margin: 6px 0;
 
@@ -1010,61 +1162,100 @@
             text-align: left;
         }
 
-        .leader-score {
-            font-weight: bold;
-        }
 
+        /* =====================================================
+           MOBILE
+        ===================================================== */
 
-        /* =========================
-           HANDY
-        ========================= */
-
-        @media (max-width: 700px) {
+        @media (max-width: 850px) {
 
             .side-menu {
                 left: 12px;
 
-                gap: 21px;
+                gap: 18px;
             }
 
             .side-menu a {
-                font-size: 10px;
+                font-size: 9px;
 
                 letter-spacing: 2px;
             }
 
-            .title h1 {
-                font-size: 34px;
-
-                letter-spacing: 8px;
+            #animal {
+                padding-left: 20px;
+                padding-right: 20px;
             }
 
-            .glass-box {
-                width: 94%;
-
-                padding: 25px 18px;
+            .animal-wrapper {
+                min-height: 820px;
             }
 
-            .animal-buttons {
-                grid-template-columns:
-                    repeat(2,1fr);
+            .animal-heading h2 {
+                font-size: 21px;
+
+                letter-spacing: 5px;
             }
 
-            .animal-buttons button:last-child {
-                grid-column:
-                    1 / -1;
+            .turtle-container {
+                top: 40%;
+
+                width: 92vw;
             }
 
-            .turtle {
-                font-size: 95px;
+            .animal-card {
+                width: 46%;
+
+                padding: 13px;
+            }
+
+            .animal-card p {
+                font-size: 12px;
+            }
+
+            .animal-card h3 {
+                font-size: 14px;
+            }
+
+            .card-head {
+                left: 0;
+                top: 105px;
+            }
+
+            .card-shell {
+                right: 0;
+                top: 105px;
+            }
+
+            .card-flipper {
+                left: 0;
+                bottom: 130px;
+            }
+
+            .card-breathing {
+                right: 0;
+                bottom: 130px;
+            }
+
+            .fact-bar {
+                width: 95%;
+
+                gap: 12px;
+
+                padding: 12px;
+
+                bottom: 15px;
+            }
+
+            .fact-label {
+                font-size: 10px;
+            }
+
+            #animalFact {
+                font-size: 12px;
             }
 
             .legend {
                 grid-template-columns: 1fr;
-            }
-
-            .game-area {
-                height: 320px;
             }
 
         }
@@ -1076,64 +1267,69 @@
 <body>
 
 
-<img
-    class="background"
-    src="pexels-white-noiise-77351716-29027466.jpg"
-    alt="SeaCoast"
->
+<!-- =====================================================
+     CROSSFADE BACKGROUNDS
+===================================================== -->
 
-<div class="overlay"></div>
+<div class="background-layer coast-background"></div>
 
+<div class="background-layer underwater-background"></div>
+
+<div class="global-overlay"></div>
+
+
+<!-- =====================================================
+     SOUND
+===================================================== -->
 
 <button
     id="soundToggle"
     class="sound-toggle"
     onclick="toggleSound()"
+    aria-label="Ton ein oder ausschalten"
 >
     🔊
 </button>
 
 
-<!-- =========================
+<!-- =====================================================
      MENÜ
-========================= -->
+===================================================== -->
 
 <nav class="side-menu">
 
-    <a href="#home">
+    <a href="#home" data-section="home">
         HOME
     </a>
 
-    <a href="#quiz">
+    <a href="#quiz" data-section="quiz">
         QUIZ
     </a>
 
-    <a href="#animal">
+    <a href="#animal" data-section="animal">
         TIERVORSTELLUNG
     </a>
 
-    <a href="#game">
+    <a href="#game" data-section="game">
         SPIEL
     </a>
 
 </nav>
 
 
-<!-- =========================
+<!-- =====================================================
      HOME
-========================= -->
+===================================================== -->
 
 <section id="home">
 
-    <div class="title">
+    <div class="home-title">
 
-        <h1>
-            Sea Coast
-        </h1>
+        <h1>SEA COAST</h1>
 
-        <div class="line"></div>
+        <div class="home-line"></div>
 
-        <div class="subtitle">
+        <div class="home-subtitle">
             Explore · Discover · Enjoy
         </div>
 
@@ -1142,17 +1338,15 @@
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      QUIZ
-========================= -->
+===================================================== -->
 
 <section id="quiz">
 
     <div class="glass-box">
 
-        <h2>
-            Ocean Quiz
-        </h2>
+        <h2>Ocean Quiz</h2>
 
         <div id="counter"></div>
 
@@ -1183,130 +1377,238 @@
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      TIERVORSTELLUNG
-========================= -->
+===================================================== -->
 
 <section id="animal">
 
-    <div class="glass-box animal-box">
+    <div class="animal-wrapper">
 
-        <h2>
-            Tiervorstellung
-        </h2>
 
-        <div class="animal-subtitle">
-            Die Meeresschildkröte
+        <div class="animal-heading">
+
+            <h2>TIERVORSTELLUNG</h2>
+
+            <p>DIE MEERESSCHILDKRÖTE</p>
+
         </div>
 
 
-        <div class="turtle-stage">
+        <!-- Verbindungslinien -->
 
-            <div class="bubble one"></div>
-            <div class="bubble two"></div>
-            <div class="bubble three"></div>
+        <svg
+            class="animal-lines"
+            viewBox="0 0 1180 780"
+            preserveAspectRatio="none"
+        >
+
+            <path
+                id="line-head"
+                class="info-line"
+                d="
+                    M 405 315
+                    C 330 290,
+                      290 245,
+                      245 225
+                "
+            />
+
+            <path
+                id="line-shell"
+                class="info-line"
+                d="
+                    M 740 300
+                    C 820 280,
+                      860 230,
+                      930 220
+                "
+            />
+
+            <path
+                id="line-flipper"
+                class="info-line"
+                d="
+                    M 545 520
+                    C 445 560,
+                      360 600,
+                      245 605
+                "
+            />
+
+            <path
+                id="line-breathing"
+                class="info-line"
+                d="
+                    M 790 455
+                    C 865 490,
+                      905 550,
+                      940 580
+                "
+            />
+
+        </svg>
+
+
+        <!-- Schildkröte -->
+
+        <div class="turtle-container">
+
+
+            <img
+                src="sea-turtle.png"
+                class="turtle-image"
+                alt="Meeresschildkröte"
+            >
+
+
+            <!-- KOPF -->
 
             <div
-                class="turtle"
-                onclick="randomTurtleFact()"
-                title="Klick mich!"
+                class="hotspot hotspot-head"
+                data-info="head"
             >
-                🐢
+
+                <div class="hotspot-dot"></div>
+
             </div>
 
+
+            <!-- PANZER -->
+
+            <div
+                class="hotspot hotspot-shell"
+                data-info="shell"
+            >
+
+                <div class="hotspot-dot"></div>
+
+            </div>
+
+
+            <!-- FLOSSEN -->
+
+            <div
+                class="hotspot hotspot-flipper"
+                data-info="flipper"
+            >
+
+                <div class="hotspot-dot"></div>
+
+            </div>
+
+
+            <!-- ATMUNG -->
+
+            <div
+                class="hotspot hotspot-breathing"
+                data-info="breathing"
+            >
+
+                <div class="hotspot-dot"></div>
+
+            </div>
+
+
         </div>
 
 
-        <div class="animal-buttons">
-
-            <button
-                class="animal-button active"
-                onclick="showAnimalInfo('lebensraum',this)"
-            >
-                LEBENSRAUM
-            </button>
-
-            <button
-                class="animal-button"
-                onclick="showAnimalInfo('nahrung',this)"
-            >
-                NAHRUNG
-            </button>
-
-            <button
-                class="animal-button"
-                onclick="showAnimalInfo('alter',this)"
-            >
-                ALTER
-            </button>
-
-            <button
-                class="animal-button"
-                onclick="showAnimalInfo('tauchen',this)"
-            >
-                TAUCHEN
-            </button>
-
-            <button
-                class="animal-button"
-                onclick="showAnimalInfo('gefahren',this)"
-            >
-                GEFAHREN
-            </button>
-
-        </div>
+        <!-- INFO KARTEN -->
 
 
         <div
-            class="animal-info"
-            id="animalInfo"
+            id="card-head"
+            class="animal-card card-head"
         >
 
-            <h3>
-                Lebensraum
-            </h3>
+            <h3>KOPF</h3>
 
             <p>
-                Meeresschildkröten leben vor allem in tropischen
-                und subtropischen Meeren. Sie verbringen fast ihr
-                gesamtes Leben im Wasser und kommen hauptsächlich
-                zur Eiablage an Land.
+                Meeresschildkröten besitzen einen sehr
+                guten Geruchssinn. Damit können sie unter
+                anderem Nahrung und wichtige Orientierungspunkte
+                im Meer wahrnehmen.
             </p>
 
         </div>
 
 
-        <button
-            class="main-button"
-            onclick="randomTurtleFact()"
+        <div
+            id="card-shell"
+            class="animal-card card-shell"
         >
-            WUSSTEST DU?
-        </button>
+
+            <h3>PANZER</h3>
+
+            <p>
+                Der Panzer besteht aus miteinander verbundenen
+                Knochenplatten und ist mit der Wirbelsäule und
+                den Rippen verbunden. Er schützt die Schildkröte,
+                kann aber nicht abgelegt werden.
+            </p>
+
+        </div>
 
 
         <div
-            class="fact-box"
-            id="turtleFact"
+            id="card-flipper"
+            class="animal-card card-flipper"
         >
-            Klick auf die Schildkröte oder auf „Wusstest du?“.
+
+            <h3>FLOSSEN</h3>
+
+            <p>
+                Die kräftigen Vorderflossen funktionieren
+                ähnlich wie Flügel. Mit ihnen erzeugt die
+                Schildkröte ihren Vortrieb durch das Wasser.
+            </p>
+
         </div>
+
+
+        <div
+            id="card-breathing"
+            class="animal-card card-breathing"
+        >
+
+            <h3>ATMUNG</h3>
+
+            <p>
+                Meeresschildkröten besitzen Lungen und keine
+                Kiemen. Deshalb müssen sie regelmäßig zum
+                Atmen an die Wasseroberfläche kommen.
+            </p>
+
+        </div>
+
+
+        <!-- FACT BAR -->
+
+        <div class="fact-bar">
+
+            <div class="fact-label">
+                💡 WUSSTEST DU?
+            </div>
+
+            <div id="animalFact"></div>
+
+        </div>
+
 
     </div>
 
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      SPIEL
-========================= -->
+===================================================== -->
 
 <section id="game">
 
     <div class="glass-box">
 
-        <h2>
-            Sea Hunt
-        </h2>
+        <h2>SEA HUNT</h2>
 
         <p>
             Sammle in 30 Sekunden so viele Punkte wie möglich.
@@ -1316,54 +1618,42 @@
         <div class="legend">
 
             <div class="legend-item">
-                🐚 Muschel
-                <strong>+1</strong>
+                🐚 Muschel <strong>+1</strong>
             </div>
 
             <div class="legend-item">
-                🐙 Lila Octopus
-                <strong>+2</strong>
+                🐙 Lila Octopus <strong>+2</strong>
             </div>
 
             <div class="legend-item">
-                ⭐ Goldener Seestern
-                <strong>+5</strong>
+                ⭐ Goldener Seestern <strong>+5</strong>
             </div>
 
             <div class="legend-item">
-                🦀 Feuerrote Krabbe
-                <strong>−3</strong>
+                🦀 Feuerrote Krabbe <strong>−3</strong>
             </div>
 
         </div>
 
 
-        <div class="name-area">
-
-            <input
-                id="playerName"
-                class="name-input"
-                maxlength="20"
-                placeholder="Dein Name"
-            >
-
-        </div>
+        <input
+            id="playerName"
+            class="name-input"
+            maxlength="20"
+            placeholder="Dein Name"
+        >
 
 
         <div class="game-info">
 
             <div>
                 PUNKTE:
-                <strong id="gameScore">
-                    0
-                </strong>
+                <strong id="gameScore">0</strong>
             </div>
 
             <div>
                 ZEIT:
-                <strong id="gameTime">
-                    30
-                </strong>
+                <strong id="gameTime">30</strong>
             </div>
 
         </div>
@@ -1398,13 +1688,11 @@
 
         <div class="leaderboard">
 
-            <h3>
-                🏆 TOP 10
-            </h3>
+            <h3>🏆 TOP 10</h3>
 
             <div
-                class="leaderboard-list"
                 id="leaderboardList"
+                class="leaderboard-list"
             ></div>
 
             <div id="leaderboardStatus">
@@ -1413,13 +1701,13 @@
 
         </div>
 
+
     </div>
 
 </section>
 
 
 <script>
-
 
 /* =====================================================
    SUPABASE
@@ -1433,27 +1721,456 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
+   CROSSFADE / AKTIVER BEREICH
+===================================================== */
+
+const sections =
+    document.querySelectorAll("section");
+
+const menuLinks =
+    document.querySelectorAll(".side-menu a");
+
+
+const observer =
+    new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (
+                    entry.isIntersecting &&
+                    entry.intersectionRatio > 0.45
+                ) {
+
+                    const id =
+                        entry.target.id;
+
+
+                    document.body.classList.toggle(
+                        "underwater-mode",
+                        id === "animal"
+                    );
+
+
+                    menuLinks.forEach(link => {
+
+                        link.classList.toggle(
+                            "active",
+                            link.dataset.section === id
+                        );
+
+                    });
+
+                }
+
+            });
+
+        },
+
+        {
+            threshold:
+                [0.45,0.6]
+        }
+
+    );
+
+
+sections.forEach(section => {
+
+    observer.observe(section);
+
+});
+
+
+/* =====================================================
+   TIERVORSTELLUNG HOTSPOTS
+===================================================== */
+
+const hotspots =
+    document.querySelectorAll(".hotspot");
+
+
+const cards =
+    {
+        head:
+            document.getElementById(
+                "card-head"
+            ),
+
+        shell:
+            document.getElementById(
+                "card-shell"
+            ),
+
+        flipper:
+            document.getElementById(
+                "card-flipper"
+            ),
+
+        breathing:
+            document.getElementById(
+                "card-breathing"
+            )
+    };
+
+
+const lines =
+    {
+        head:
+            document.getElementById(
+                "line-head"
+            ),
+
+        shell:
+            document.getElementById(
+                "line-shell"
+            ),
+
+        flipper:
+            document.getElementById(
+                "line-flipper"
+            ),
+
+        breathing:
+            document.getElementById(
+                "line-breathing"
+            )
+    };
+
+
+let selectedHotspot =
+    null;
+
+
+function showAnimalCard(
+    name
+) {
+
+    hotspots.forEach(
+        element =>
+            element.classList.remove(
+                "active"
+            )
+    );
+
+
+    Object.values(
+        cards
+    ).forEach(
+        element =>
+            element.classList.remove(
+                "active"
+            )
+    );
+
+
+    Object.values(
+        lines
+    ).forEach(
+        element =>
+            element.classList.remove(
+                "active"
+            )
+    );
+
+
+    const hotspot =
+        document.querySelector(
+            '[data-info="' +
+            name +
+            '"]'
+        );
+
+
+    hotspot.classList.add(
+        "active"
+    );
+
+
+    cards[
+        name
+    ].classList.add(
+        "active"
+    );
+
+
+    /*
+       Animation neu starten
+    */
+
+    const line =
+        lines[name];
+
+
+    line.classList.remove(
+        "active"
+    );
+
+
+    void line.getBoundingClientRect();
+
+
+    line.classList.add(
+        "active"
+    );
+
+}
+
+
+function hideAnimalCards() {
+
+    if (
+        selectedHotspot
+    ) return;
+
+
+    hotspots.forEach(
+        element =>
+            element.classList.remove(
+                "active"
+            )
+    );
+
+
+    Object.values(
+        cards
+    ).forEach(
+        element =>
+            element.classList.remove(
+                "active"
+            )
+    );
+
+
+    Object.values(
+        lines
+    ).forEach(
+        element =>
+            element.classList.remove(
+                "active"
+            )
+    );
+
+}
+
+
+hotspots.forEach(
+    hotspot => {
+
+
+        const info =
+            hotspot.dataset.info;
+
+
+        /*
+           PC Hover
+        */
+
+        hotspot.addEventListener(
+            "mouseenter",
+            function() {
+
+                showAnimalCard(
+                    info
+                );
+
+            }
+        );
+
+
+        hotspot.addEventListener(
+            "mouseleave",
+            function() {
+
+                if (
+                    !selectedHotspot
+                ) {
+
+                    hideAnimalCards();
+
+                }
+
+            }
+        );
+
+
+        /*
+           Handy / Klick
+        */
+
+        hotspot.addEventListener(
+            "click",
+            function(event) {
+
+                event.stopPropagation();
+
+
+                if (
+                    selectedHotspot ===
+                    info
+                ) {
+
+                    selectedHotspot =
+                        null;
+
+
+                    hideAnimalCards();
+
+                }
+
+                else {
+
+                    selectedHotspot =
+                        info;
+
+
+                    showAnimalCard(
+                        info
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+document.addEventListener(
+    "click",
+    function() {
+
+        if (
+            selectedHotspot
+        ) {
+
+            selectedHotspot =
+                null;
+
+
+            hideAnimalCards();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   WUSSTEST DU FACTS
+===================================================== */
+
+const animalFacts =
+    [
+
+        "Weibliche Meeresschildkröten kehren zur Eiablage häufig in die Region zurück, in der sie selbst geschlüpft sind.",
+
+        "Meeresschildkröten können sich unter anderem am Magnetfeld der Erde orientieren.",
+
+        "Das Geschlecht vieler junger Meeresschildkröten wird von der Temperatur im Nest beeinflusst.",
+
+        "Meeresschildkröten besitzen keine Zähne. Ihre kräftigen Kiefer sind an die jeweilige Nahrung angepasst.",
+
+        "Spezielle Salzdrüsen helfen Meeresschildkröten dabei, überschüssiges Salz aus ihrem Körper auszuscheiden.",
+
+        "Während Ruhephasen können manche Meeresschildkröten mehrere Stunden unter Wasser bleiben."
+
+    ];
+
+
+let animalFactIndex =
+    0;
+
+
+const animalFactElement =
+    document.getElementById(
+        "animalFact"
+    );
+
+
+function showNextAnimalFact() {
+
+    animalFactElement.style.opacity =
+        0;
+
+
+    setTimeout(
+        function() {
+
+
+            animalFactElement.textContent =
+                animalFacts[
+                    animalFactIndex
+                ];
+
+
+            animalFactIndex =
+                (
+                    animalFactIndex +
+                    1
+                ) %
+                animalFacts.length;
+
+
+            animalFactElement.style.opacity =
+                1;
+
+
+        },
+        350
+    );
+
+}
+
+
+showNextAnimalFact();
+
+
+setInterval(
+    showNextAnimalFact,
+    7000
+);
+
+
+/* =====================================================
    AUDIO
 ===================================================== */
 
-let audioContext = null;
-let masterGain = null;
-let ambientGain = null;
-let effectsGain = null;
+let audioContext =
+    null;
 
-let oceanSource = null;
-let oceanLFO = null;
+let masterGain =
+    null;
 
-let gullTimer = null;
+let ambientGain =
+    null;
 
-let soundEnabled = true;
-let ambientCreated = false;
+let effectsGain =
+    null;
+
+let oceanSource =
+    null;
+
+let gullTimer =
+    null;
+
+let soundEnabled =
+    true;
+
+let ambientCreated =
+    false;
 
 
 function setupAudio() {
 
-    if (audioContext) {
+    if (
+        audioContext
+    ) {
+
         return audioContext;
+
     }
 
 
@@ -1508,41 +2225,46 @@ function setupAudio() {
 }
 
 
-/* WELLEN */
-
 function createOceanSound() {
 
-    if (ambientCreated) return;
+    if (
+        ambientCreated
+    ) return;
 
 
     const ctx =
         setupAudio();
 
 
-    const bufferLength =
-        ctx.sampleRate * 4;
+    const length =
+        ctx.sampleRate *
+        4;
 
 
     const buffer =
         ctx.createBuffer(
             1,
-            bufferLength,
+            length,
             ctx.sampleRate
         );
 
 
     const data =
-        buffer.getChannelData(0);
+        buffer.getChannelData(
+            0
+        );
 
 
     for (
         let i = 0;
-        i < bufferLength;
+        i < length;
         i++
     ) {
 
         data[i] =
-            Math.random() * 2 - 1;
+            Math.random() *
+            2 -
+            1;
 
     }
 
@@ -1559,32 +2281,32 @@ function createOceanSound() {
         true;
 
 
-    const lowPass =
+    const filter =
         ctx.createBiquadFilter();
 
 
-    lowPass.type =
+    filter.type =
         "lowpass";
 
 
-    lowPass.frequency.value =
-        700;
+    filter.frequency.value =
+        650;
 
 
-    const waveGain =
+    const gain =
         ctx.createGain();
 
 
-    waveGain.gain.value =
-        0.03;
+    gain.gain.value =
+        0.025;
 
 
-    oceanLFO =
+    const lfo =
         ctx.createOscillator();
 
 
-    oceanLFO.frequency.value =
-        0.09;
+    lfo.frequency.value =
+        0.08;
 
 
     const lfoGain =
@@ -1592,37 +2314,37 @@ function createOceanSound() {
 
 
     lfoGain.gain.value =
-        0.018;
+        0.014;
 
 
-    oceanLFO.connect(
+    lfo.connect(
         lfoGain
     );
 
 
     lfoGain.connect(
-        waveGain.gain
+        gain.gain
     );
 
 
     oceanSource.connect(
-        lowPass
+        filter
     );
 
 
-    lowPass.connect(
-        waveGain
+    filter.connect(
+        gain
     );
 
 
-    waveGain.connect(
+    gain.connect(
         ambientGain
     );
 
 
     oceanSource.start();
 
-    oceanLFO.start();
+    lfo.start();
 
 
     ambientCreated =
@@ -1634,17 +2356,14 @@ function createOceanSound() {
 }
 
 
-/* MÖWEN */
-
 function playGull() {
 
     if (
         !soundEnabled ||
         !audioContext ||
-        audioContext.state !== "running"
-    ) {
-        return;
-    }
+        audioContext.state !==
+        "running"
+    ) return;
 
 
     const ctx =
@@ -1688,7 +2407,7 @@ function playGull() {
 
 
     gain.gain.linearRampToValueAtTime(
-        0.022,
+        0.02,
         start + 0.08
     );
 
@@ -1725,12 +2444,6 @@ function scheduleGull() {
     );
 
 
-    const delay =
-        15000 +
-        Math.random() *
-        20000;
-
-
     gullTimer =
         setTimeout(
             function() {
@@ -1740,7 +2453,10 @@ function scheduleGull() {
                 scheduleGull();
 
             },
-            delay
+
+            15000 +
+            Math.random() *
+            20000
         );
 
 }
@@ -1782,36 +2498,32 @@ async function toggleSound() {
         !soundEnabled;
 
 
-    const button =
-        document.getElementById(
-            "soundToggle"
-        );
+    document.getElementById(
+        "soundToggle"
+    ).textContent =
+
+        soundEnabled
+            ? "🔊"
+            : "🔇";
+
+
+    masterGain.gain.setTargetAtTime(
+
+        soundEnabled
+            ? 1
+            : 0,
+
+        audioContext.currentTime,
+
+        0.08
+    );
 
 
     if (
         soundEnabled
     ) {
 
-        masterGain.gain.value =
-            1;
-
-
-        button.innerText =
-            "🔊";
-
-
         await startAmbientSound();
-
-    }
-
-    else {
-
-        masterGain.gain.value =
-            0;
-
-
-        button.innerText =
-            "🔇";
 
     }
 
@@ -1824,40 +2536,35 @@ window.addEventListener(
 );
 
 
-async function unlockAudio() {
+document.addEventListener(
+    "pointerdown",
 
-    if (
-        soundEnabled
-    ) {
+    async function unlock() {
 
         await startAmbientSound();
 
+
+        document.removeEventListener(
+            "pointerdown",
+            unlock
+        );
+
     }
 
-
-    document.removeEventListener(
-        "pointerdown",
-        unlockAudio
-    );
-
-}
-
-
-document.addEventListener(
-    "pointerdown",
-    unlockAudio
 );
 
 
 /* =====================================================
-   TÖNE
+   SPIEL SOUND
 ===================================================== */
 
 function playTone(
     frequency,
     duration,
-    type = "sine",
-    volume = 0.1
+    type =
+        "sine",
+    volume =
+        0.08
 ) {
 
     if (
@@ -1875,7 +2582,7 @@ function playTone(
     ) return;
 
 
-    const oscillator =
+    const osc =
         ctx.createOscillator();
 
 
@@ -1883,11 +2590,11 @@ function playTone(
         ctx.createGain();
 
 
-    oscillator.type =
+    osc.type =
         type;
 
 
-    oscillator.frequency.value =
+    osc.frequency.value =
         frequency;
 
 
@@ -1904,7 +2611,7 @@ function playTone(
     );
 
 
-    oscillator.connect(
+    osc.connect(
         gain
     );
 
@@ -1914,10 +2621,10 @@ function playTone(
     );
 
 
-    oscillator.start();
+    osc.start();
 
 
-    oscillator.stop(
+    osc.stop(
         ctx.currentTime +
         duration
     );
@@ -1935,9 +2642,7 @@ function playObjectSound(
 
         playTone(
             720,
-            0.1,
-            "sine",
-            0.07
+            0.1
         );
 
     }
@@ -1949,8 +2654,7 @@ function playObjectSound(
         playTone(
             420,
             0.15,
-            "triangle",
-            0.09
+            "triangle"
         );
 
     }
@@ -1961,37 +2665,27 @@ function playObjectSound(
 
         playTone(
             880,
-            0.12,
-            "sine",
-            0.11
+            0.12
         );
 
 
         setTimeout(
-            function() {
-
+            () =>
                 playTone(
                     1175,
-                    0.18,
-                    "sine",
-                    0.09
-                );
-
-            },
+                    0.18
+                ),
             70
         );
 
     }
 
-    else if (
-        points === -3
-    ) {
+    else {
 
         playTone(
             160,
             0.2,
-            "sawtooth",
-            0.07
+            "sawtooth"
         );
 
     }
@@ -2003,13 +2697,14 @@ function playObjectSound(
    QUIZ
 ===================================================== */
 
-const questions = [
-
+const questions =
+[
     {
         question:
             "Welcher ist der größte Ozean der Erde?",
 
-        answers: [
+        answers:
+        [
             "Atlantischer Ozean",
             "Pazifischer Ozean",
             "Indischer Ozean",
@@ -2023,7 +2718,8 @@ const questions = [
         question:
             "Wie viel Prozent der Erdoberfläche sind ungefähr von Wasser bedeckt?",
 
-        answers: [
+        answers:
+        [
             "41 %",
             "55 %",
             "71 %",
@@ -2037,7 +2733,8 @@ const questions = [
         question:
             "Welches ist das größte Tier der Erde?",
 
-        answers: [
+        answers:
+        [
             "Weißer Hai",
             "Blauwal",
             "Riesenkalmar",
@@ -2051,7 +2748,8 @@ const questions = [
         question:
             "Wie heißt die tiefste bekannte Stelle der Weltmeere?",
 
-        answers: [
+        answers:
+        [
             "Marianengraben",
             "Bermudadreieck",
             "Great Barrier Reef",
@@ -2065,7 +2763,8 @@ const questions = [
         question:
             "Welches dieser Tiere ist kein Fisch?",
 
-        answers: [
+        answers:
+        [
             "Thunfisch",
             "Hai",
             "Delfin",
@@ -2074,17 +2773,14 @@ const questions = [
 
         correct: 2
     }
-
 ];
 
 
 let currentQuestion =
     0;
 
-
-let score =
+let quizScore =
     0;
-
 
 let answered =
     false;
@@ -2104,7 +2800,7 @@ function showQuestion() {
 
     document.getElementById(
         "counter"
-    ).innerText =
+    ).textContent =
 
         "FRAGE " +
 
@@ -2120,14 +2816,57 @@ function showQuestion() {
 
     document.getElementById(
         "question"
-    ).innerText =
+    ).textContent =
         q.question;
+
+
+    const answers =
+        document.getElementById(
+            "answers"
+        );
+
+
+    answers.innerHTML =
+        "";
 
 
     document.getElementById(
         "message"
-    ).innerText =
+    ).textContent =
         "";
+
+
+    q.answers.forEach(
+        (answer,index) => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "answer";
+
+
+            button.textContent =
+                answer;
+
+
+            button.onclick =
+                () =>
+                    checkAnswer(
+                        index,
+                        button
+                    );
+
+
+            answers.appendChild(
+                button
+            );
+
+        }
+    );
 
 
     document.getElementById(
@@ -2140,53 +2879,6 @@ function showQuestion() {
         "restartButton"
     ).style.display =
         "none";
-
-
-    const answersDiv =
-        document.getElementById(
-            "answers"
-        );
-
-
-    answersDiv.innerHTML =
-        "";
-
-
-    q.answers.forEach(
-        (answer,index) => {
-
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.className =
-                "answer";
-
-
-            button.innerText =
-                answer;
-
-
-            button.onclick =
-                function() {
-
-                    checkAnswer(
-                        index,
-                        button
-                    );
-
-                };
-
-
-            answersDiv.appendChild(
-                button
-            );
-
-        }
-    );
 
 }
 
@@ -2227,13 +2919,13 @@ function checkAnswer(
         );
 
 
+        quizScore++;
+
+
         document.getElementById(
             "message"
-        ).innerText =
+        ).textContent =
             "✓ Richtig!";
-
-
-        score++;
 
     }
 
@@ -2253,7 +2945,7 @@ function checkAnswer(
 
         document.getElementById(
             "message"
-        ).innerText =
+        ).textContent =
             "✕ Leider falsch.";
 
     }
@@ -2290,58 +2982,51 @@ function nextQuestion() {
 
     else {
 
-        showResult();
+        document.getElementById(
+            "counter"
+        ).textContent =
+            "";
+
+
+        document.getElementById(
+            "question"
+        ).textContent =
+            "Quiz beendet!";
+
+
+        document.getElementById(
+            "answers"
+        ).innerHTML =
+            "";
+
+
+        document.getElementById(
+            "message"
+        ).innerHTML =
+
+            "Du hast <strong>" +
+
+            quizScore +
+
+            " von " +
+
+            questions.length +
+
+            "</strong> richtig.";
+
+
+        document.getElementById(
+            "nextButton"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "restartButton"
+        ).style.display =
+            "block";
 
     }
-
-}
-
-
-function showResult() {
-
-    document.getElementById(
-        "counter"
-    ).innerText =
-        "";
-
-
-    document.getElementById(
-        "question"
-    ).innerText =
-        "Quiz beendet!";
-
-
-    document.getElementById(
-        "answers"
-    ).innerHTML =
-        "";
-
-
-    document.getElementById(
-        "message"
-    ).innerHTML =
-
-        "Du hast <strong>" +
-
-        score +
-
-        " von " +
-
-        questions.length +
-
-        "</strong> Fragen richtig.";
-
-
-    document.getElementById(
-        "restartButton"
-    ).style.display =
-        "block";
-
-
-    document.getElementById(
-        "nextButton"
-    ).style.display =
-        "none";
 
 }
 
@@ -2352,7 +3037,7 @@ function restartQuiz() {
         0;
 
 
-    score =
+    quizScore =
         0;
 
 
@@ -2365,174 +3050,11 @@ showQuestion();
 
 
 /* =====================================================
-   TIERVORSTELLUNG
-===================================================== */
-
-const turtleInformation = {
-
-    lebensraum: {
-
-        title:
-            "Lebensraum",
-
-        text:
-            "Meeresschildkröten leben vor allem in tropischen und subtropischen Meeren. Sie verbringen fast ihr gesamtes Leben im Wasser und kommen hauptsächlich zur Eiablage an Land."
-
-    },
-
-
-    nahrung: {
-
-        title:
-            "Nahrung",
-
-        text:
-            "Je nach Art fressen Meeresschildkröten unter anderem Seegras, Algen, Quallen, Schwämme, Krebse und andere kleine Meerestiere."
-
-    },
-
-
-    alter: {
-
-        title:
-            "Alter",
-
-        text:
-            "Meeresschildkröten können viele Jahrzehnte alt werden. Bei einigen Arten geht man davon aus, dass einzelne Tiere 70 Jahre oder sogar älter werden können."
-
-    },
-
-
-    tauchen: {
-
-        title:
-            "Tauchen",
-
-        text:
-            "Meeresschildkröten atmen mit Lungen und müssen deshalb an die Oberfläche. Während einer Ruhephase können manche Arten jedoch mehrere Stunden unter Wasser bleiben."
-
-    },
-
-
-    gefahren: {
-
-        title:
-            "Gefahren",
-
-        text:
-            "Zu den größten Gefahren zählen Plastikmüll, Fischernetze, Verlust von Niststränden, Schiffsverkehr und Veränderungen ihres Lebensraumes."
-
-    }
-
-};
-
-
-function showAnimalInfo(
-    topic,
-    button
-) {
-
-    const info =
-        turtleInformation[
-            topic
-        ];
-
-
-    document.getElementById(
-        "animalInfo"
-    ).innerHTML =
-
-        "<h3>" +
-
-        info.title +
-
-        "</h3>" +
-
-        "<p>" +
-
-        info.text +
-
-        "</p>";
-
-
-    document.querySelectorAll(
-        ".animal-button"
-    ).forEach(
-        element =>
-            element.classList.remove(
-                "active"
-            )
-    );
-
-
-    button.classList.add(
-        "active"
-    );
-
-
-    playTone(
-        560,
-        0.08,
-        "sine",
-        0.035
-    );
-
-}
-
-
-const turtleFacts = [
-
-    "Meeresschildkröten orientieren sich unter anderem am Magnetfeld der Erde.",
-
-    "Weibliche Meeresschildkröten kehren häufig zur Eiablage in die Region zurück, in der sie selbst geschlüpft sind.",
-
-    "Meeresschildkröten können Salzwasser trinken. Spezielle Drüsen helfen ihnen dabei, überschüssiges Salz wieder auszuscheiden.",
-
-    "Das Geschlecht vieler junger Meeresschildkröten wird von der Temperatur während der Entwicklung im Ei beeinflusst.",
-
-    "Meeresschildkröten besitzen keine Zähne. Ihre Kiefer sind stattdessen an die jeweilige Nahrung angepasst.",
-
-    "Nach dem Schlüpfen orientieren sich junge Schildkröten normalerweise am helleren Horizont über dem Meer."
-
-];
-
-
-function randomTurtleFact() {
-
-    const fact =
-        turtleFacts[
-            Math.floor(
-                Math.random() *
-                turtleFacts.length
-            )
-        ];
-
-
-    document.getElementById(
-        "turtleFact"
-    ).innerHTML =
-
-        "🐢 <strong>Wusstest du?</strong><br>" +
-
-        fact;
-
-
-    playTone(
-        660,
-        0.10,
-        "triangle",
-        0.04
-    );
-
-}
-
-
-/* =====================================================
    SPIEL
 ===================================================== */
 
-const gameObjects = [
-
+const gameObjects =
+[
     {
         emoji: "🐚",
         points: 1,
@@ -2560,45 +3082,37 @@ const gameObjects = [
         className:
             "crab-object"
     }
-
 ];
 
 
 let gameScore =
     0;
 
-
 let gameTime =
     30;
-
 
 let gameRunning =
     false;
 
-
 let gameTimer =
     null;
 
-
 let spawnTimer =
     null;
-
 
 let currentPlayerName =
     "";
 
 
-function wait(ms) {
-
-    return new Promise(
-        resolve =>
-            setTimeout(
-                resolve,
-                ms
-            )
-    );
-
-}
+const wait =
+    ms =>
+        new Promise(
+            resolve =>
+                setTimeout(
+                    resolve,
+                    ms
+                )
+        );
 
 
 async function runCountdown() {
@@ -2614,39 +3128,22 @@ async function runCountdown() {
     );
 
 
-    const values =
-        [
-            "3",
-            "2",
-            "1",
-            "LOS!"
-        ];
-
-
     for (
         const value
-        of values
+        of
+        ["3","2","1","LOS!"]
     ) {
 
-        countdown.innerHTML =
-
-            '<div class="countdown-number">' +
-
-            value +
-
-            '</div>';
+        countdown.textContent =
+            value;
 
 
         playTone(
-            value === "LOS!"
+            value ===
+            "LOS!"
                 ? 850
                 : 440,
-
-            0.1,
-
-            "sine",
-
-            0.05
+            0.1
         );
 
 
@@ -2660,10 +3157,6 @@ async function runCountdown() {
     countdown.classList.remove(
         "show"
     );
-
-
-    countdown.innerHTML =
-        "";
 
 }
 
@@ -2686,14 +3179,15 @@ async function startGame() {
 
 
     if (
-        name.length < 2
+        name.length <
+        2
     ) {
 
         document.getElementById(
             "gameMessage"
-        ).innerText =
+        ).textContent =
 
-            "Bitte gib zuerst einen Namen mit mindestens 2 Zeichen ein.";
+            "Bitte gib zuerst einen Namen ein.";
 
 
         return;
@@ -2708,9 +3202,6 @@ async function startGame() {
         );
 
 
-    await startAmbientSound();
-
-
     gameRunning =
         true;
 
@@ -2723,16 +3214,8 @@ async function startGame() {
         30;
 
 
-    document.getElementById(
-        "gameScore"
-    ).innerText =
-        0;
-
-
-    document.getElementById(
-        "gameTime"
-    ).innerText =
-        30;
+    input.disabled =
+        true;
 
 
     document.getElementById(
@@ -2741,8 +3224,16 @@ async function startGame() {
         true;
 
 
-    input.disabled =
-        true;
+    document.getElementById(
+        "gameScore"
+    ).textContent =
+        0;
+
+
+    document.getElementById(
+        "gameTime"
+    ).textContent =
+        30;
 
 
     await runCountdown();
@@ -2751,16 +3242,7 @@ async function startGame() {
     spawnObject();
 
 
-    setTimeout(
-        spawnObject,
-        450
-    );
-
-
-    setTimeout(
-        spawnObject,
-        950
-    );
+    scheduleNextSpawn();
 
 
     gameTimer =
@@ -2772,7 +3254,7 @@ async function startGame() {
 
                 document.getElementById(
                     "gameTime"
-                ).innerText =
+                ).textContent =
                     gameTime;
 
 
@@ -2789,43 +3271,31 @@ async function startGame() {
             1000
         );
 
-
-    scheduleNextSpawn();
-
 }
 
 
 function chooseRandomObject() {
 
-    const r =
+    const random =
         Math.random();
 
 
     if (
-        r < 0.45
-    ) {
-
-        return gameObjects[0];
-
-    }
+        random <
+        0.45
+    ) return gameObjects[0];
 
 
     if (
-        r < 0.75
-    ) {
-
-        return gameObjects[1];
-
-    }
+        random <
+        0.75
+    ) return gameObjects[1];
 
 
     if (
-        r < 0.90
-    ) {
-
-        return gameObjects[2];
-
-    }
+        random <
+        0.90
+    ) return gameObjects[2];
 
 
     return gameObjects[3];
@@ -2849,12 +3319,9 @@ function spawnObject() {
     if (
         area.querySelectorAll(
             ".game-object"
-        ).length >= 5
-    ) {
-
-        return;
-
-    }
+        ).length >=
+        5
+    ) return;
 
 
     const data =
@@ -2874,7 +3341,7 @@ function spawnObject() {
         data.className;
 
 
-    object.innerText =
+    object.textContent =
         data.emoji;
 
 
@@ -2883,38 +3350,29 @@ function spawnObject() {
 
 
     object.style.left =
-
         Math.random() *
-
         (
             area.clientWidth -
             70
         ) +
-
         "px";
 
 
     object.style.top =
-
         Math.random() *
-
         (
             area.clientHeight -
             70
         ) +
-
         "px";
 
 
     object.onclick =
-        function(event) {
-
+        event =>
             collectObject(
                 event,
                 object
             );
-
-        };
 
 
     area.appendChild(
@@ -2968,6 +3426,7 @@ function scheduleNextSpawn() {
 
                 spawnObject();
 
+
                 scheduleNextSpawn();
 
             },
@@ -3002,7 +3461,7 @@ function collectObject(
 
     document.getElementById(
         "gameScore"
-    ).innerText =
+    ).textContent =
         gameScore;
 
 
@@ -3011,12 +3470,12 @@ function collectObject(
     );
 
 
-    showTouchWave(
+    showRipple(
         event
     );
 
 
-    showPointPopup(
+    showPoints(
         event,
         points
     );
@@ -3027,7 +3486,7 @@ function collectObject(
 }
 
 
-function showTouchWave(
+function showRipple(
     event
 ) {
 
@@ -3052,22 +3511,18 @@ function showTouchWave(
 
 
     wave.style.left =
-
         (
             event.clientX -
             rect.left
         ) +
-
         "px";
 
 
     wave.style.top =
-
         (
             event.clientY -
             rect.top
         ) +
-
         "px";
 
 
@@ -3085,7 +3540,7 @@ function showTouchWave(
 }
 
 
-function showPointPopup(
+function showPoints(
     event,
     points
 ) {
@@ -3110,61 +3565,35 @@ function showPointPopup(
         "point-popup";
 
 
-    if (
-        points === 5
-    ) {
-
-        popup.classList.add(
-            "point-gold"
-        );
-
-    }
-
-    else if (
-        points < 0
-    ) {
-
-        popup.classList.add(
-            "point-negative"
-        );
-
-    }
-
-    else {
-
-        popup.classList.add(
-            "point-positive"
-        );
-
-    }
-
-
-    popup.innerText =
-
+    popup.textContent =
         points > 0
-
             ? "+" + points
-
             : points;
 
 
-    popup.style.left =
+    popup.style.color =
+        points === 5
+            ? "#ffd700"
+            :
+        points < 0
+            ? "#ff3b30"
+            :
+            "white";
 
+
+    popup.style.left =
         (
             event.clientX -
             rect.left
         ) +
-
         "px";
 
 
     popup.style.top =
-
         (
             event.clientY -
             rect.top
         ) +
-
         "px";
 
 
@@ -3206,8 +3635,8 @@ async function endGame() {
     document.querySelectorAll(
         ".game-object"
     ).forEach(
-        element =>
-            element.remove()
+        object =>
+            object.remove()
     );
 
 
@@ -3219,7 +3648,7 @@ async function endGame() {
 
     document.getElementById(
         "gameStartButton"
-    ).innerText =
+    ).textContent =
         "NOCH EINMAL";
 
 
@@ -3255,7 +3684,7 @@ async function endGame() {
 
 
 /* =====================================================
-   SCORE SPEICHERN
+   SUPABASE SCORE
 ===================================================== */
 
 async function saveScore(
@@ -3269,7 +3698,6 @@ async function saveScore(
             await fetch(
 
                 SUPABASE_URL +
-
                 "/rest/v1/Leaderboard",
 
                 {
@@ -3277,8 +3705,8 @@ async function saveScore(
                     method:
                         "POST",
 
-                    headers: {
-
+                    headers:
+                    {
                         "apikey":
                             SUPABASE_KEY,
 
@@ -3287,18 +3715,13 @@ async function saveScore(
 
                         "Prefer":
                             "return=minimal"
-
                     },
 
                     body:
-                        JSON.stringify({
-
-                            name:
-                                name,
-
-                            punkte:
-                                punkte
-
+                        JSON.stringify(
+                        {
+                            name,
+                            punkte
                         })
 
                 }
@@ -3326,7 +3749,7 @@ async function saveScore(
             " Punkte</strong> gespeichert!";
 
 
-        await loadLeaderboard();
+        loadLeaderboard();
 
     }
 
@@ -3334,7 +3757,7 @@ async function saveScore(
 
         document.getElementById(
             "gameMessage"
-        ).innerText =
+        ).textContent =
 
             "Spielstand konnte nicht gespeichert werden.";
 
@@ -3355,12 +3778,6 @@ async function loadLeaderboard() {
         );
 
 
-    const status =
-        document.getElementById(
-            "leaderboardStatus"
-        );
-
-
     try {
 
         const response =
@@ -3378,11 +3795,10 @@ async function loadLeaderboard() {
 
                 {
 
-                    headers: {
-
+                    headers:
+                    {
                         "apikey":
                             SUPABASE_KEY
-
                     }
 
                 }
@@ -3399,7 +3815,10 @@ async function loadLeaderboard() {
 
 
         data.forEach(
-            (player,index) => {
+            (
+                player,
+                index
+            ) => {
 
 
                 const row =
@@ -3413,26 +3832,26 @@ async function loadLeaderboard() {
 
 
                 let rank =
-                    index + 1 +
+                    (
+                        index +
+                        1
+                    ) +
                     ".";
 
 
                 if (
                     index === 0
-                ) rank =
-                    "🥇";
+                ) rank = "🥇";
 
 
                 if (
                     index === 1
-                ) rank =
-                    "🥈";
+                ) rank = "🥈";
 
 
                 if (
                     index === 2
-                ) rank =
-                    "🥉";
+                ) rank = "🥉";
 
 
                 row.innerHTML =
@@ -3445,7 +3864,7 @@ async function loadLeaderboard() {
 
                     "<div class='leader-name'></div>" +
 
-                    "<div class='leader-score'>" +
+                    "<div>" +
 
                     player.punkte +
 
@@ -3466,14 +3885,20 @@ async function loadLeaderboard() {
         );
 
 
-        status.innerText =
+        document.getElementById(
+            "leaderboardStatus"
+        ).textContent =
+
             "Top 10 aller Spieler";
 
     }
 
     catch(error) {
 
-        status.innerText =
+        document.getElementById(
+            "leaderboardStatus"
+        ).textContent =
+
             "Leaderboard konnte nicht geladen werden.";
 
     }
