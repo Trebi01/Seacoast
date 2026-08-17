@@ -6,52 +6,168 @@
     <title>SeaCoast</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         html, body {
             margin: 0;
             width: 100%;
-            height: 100%;
+            min-height: 100%;
+            font-family: "Helvetica Neue", Arial, sans-serif;
             background: black;
         }
 
         .hero {
             position: relative;
             width: 100%;
-            height: 100%;
+            min-height: 100vh;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .hero img {
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
+            z-index: 0;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.25);
+            z-index: 1;
         }
 
         .title {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
+            position: relative;
+            z-index: 2;
+            margin-top: 55px;
             text-align: center;
             color: white;
-            white-space: nowrap;
         }
 
         .title h1 {
             margin: 0;
-            font-family: "Helvetica Neue", Arial, sans-serif;
             font-size: clamp(36px, 5vw, 72px);
             font-weight: 300;
             letter-spacing: 14px;
             text-transform: uppercase;
-            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.35);
+            text-shadow: 0 2px 15px rgba(0,0,0,0.4);
         }
 
         .line {
             width: 70px;
             height: 1px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255,255,255,0.9);
             margin: 18px auto 0;
+        }
+
+        .quiz-box {
+            position: relative;
+            z-index: 2;
+            width: min(90%, 600px);
+            margin: 70px auto 50px;
+            padding: 35px;
+            color: white;
+            text-align: center;
+
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 20px;
+
+            box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+        }
+
+        .quiz-box h2 {
+            margin-top: 0;
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        #counter {
+            opacity: 0.7;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        #question {
+            font-size: 22px;
+            line-height: 1.4;
+            margin-bottom: 25px;
+        }
+
+        .answer {
+            display: block;
+            width: 100%;
+            padding: 14px 18px;
+            margin: 12px 0;
+
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 10px;
+
+            background: rgba(255,255,255,0.08);
+            color: white;
+
+            font-size: 16px;
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        .answer:hover {
+            background: rgba(255,255,255,0.22);
+            transform: translateY(-2px);
+        }
+
+        .correct {
+            background: rgba(30, 160, 90, 0.65) !important;
+        }
+
+        .wrong {
+            background: rgba(200, 50, 50, 0.65) !important;
+        }
+
+        #message {
+            min-height: 30px;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        #nextButton,
+        #restartButton {
+            display: none;
+            margin: 20px auto 0;
+            padding: 12px 28px;
+
+            border: 1px solid white;
+            border-radius: 30px;
+
+            background: transparent;
+            color: white;
+
+            font-size: 15px;
+            letter-spacing: 2px;
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        #nextButton:hover,
+        #restartButton:hover {
+            background: white;
+            color: black;
         }
 
         @media (max-width: 600px) {
@@ -61,7 +177,16 @@
             }
 
             .title {
-                top: 8%;
+                margin-top: 35px;
+            }
+
+            .quiz-box {
+                margin-top: 45px;
+                padding: 25px 18px;
+            }
+
+            #question {
+                font-size: 19px;
             }
         }
     </style>
@@ -69,16 +194,231 @@
 
 <body>
 
-    <div class="hero">
+<div class="hero">
 
-        <img src="pexels-white-noiise-77351716-29027466.jpg" alt="SeaCoast">
+    <img
+        class="background"
+        src="pexels-white-noiise-77351716-29027466.jpg"
+        alt="SeaCoast"
+    >
 
-        <div class="title">
-            <h1>Sea Coast</h1>
-            <div class="line"></div>
-        </div>
+    <div class="overlay"></div>
+
+    <div class="title">
+        <h1>Sea Coast</h1>
+        <div class="line"></div>
+    </div>
+
+    <div class="quiz-box">
+
+        <h2>Ocean Quiz</h2>
+
+        <div id="counter"></div>
+
+        <div id="question"></div>
+
+        <div id="answers"></div>
+
+        <div id="message"></div>
+
+        <button id="nextButton" onclick="nextQuestion()">
+            WEITER
+        </button>
+
+        <button id="restartButton" onclick="restartQuiz()">
+            NOCH EINMAL
+        </button>
 
     </div>
+
+</div>
+
+
+<script>
+
+const questions = [
+
+    {
+        question: "Welcher ist der größte Ozean der Erde?",
+        answers: [
+            "Atlantischer Ozean",
+            "Pazifischer Ozean",
+            "Indischer Ozean",
+            "Arktischer Ozean"
+        ],
+        correct: 1
+    },
+
+    {
+        question: "Wie viel Prozent der Erdoberfläche sind ungefähr von Wasser bedeckt?",
+        answers: [
+            "41 %",
+            "55 %",
+            "71 %",
+            "89 %"
+        ],
+        correct: 2
+    },
+
+    {
+        question: "Welches ist das größte Tier der Erde?",
+        answers: [
+            "Weißer Hai",
+            "Blauwal",
+            "Riesenkalmar",
+            "Orca"
+        ],
+        correct: 1
+    },
+
+    {
+        question: "Wie heißt die tiefste bekannte Stelle der Weltmeere?",
+        answers: [
+            "Marianengraben",
+            "Bermudadreieck",
+            "Great Barrier Reef",
+            "Atlantischer Graben"
+        ],
+        correct: 0
+    },
+
+    {
+        question: "Welches dieser Tiere ist kein Fisch?",
+        answers: [
+            "Thunfisch",
+            "Hai",
+            "Delfin",
+            "Seepferdchen"
+        ],
+        correct: 2
+    }
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+
+function showQuestion() {
+
+    answered = false;
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("counter").innerText =
+        "FRAGE " + (currentQuestion + 1) + " VON " + questions.length;
+
+    document.getElementById("question").innerText = q.question;
+
+    document.getElementById("message").innerText = "";
+
+    document.getElementById("nextButton").style.display = "none";
+
+    const answersDiv = document.getElementById("answers");
+
+    answersDiv.innerHTML = "";
+
+    q.answers.forEach((answer, index) => {
+
+        const button = document.createElement("button");
+
+        button.className = "answer";
+        button.innerText = answer;
+
+        button.onclick = function() {
+            checkAnswer(index, button);
+        };
+
+        answersDiv.appendChild(button);
+    });
+}
+
+
+function checkAnswer(index, selectedButton) {
+
+    if (answered) return;
+
+    answered = true;
+
+    const q = questions[currentQuestion];
+
+    const buttons = document.querySelectorAll(".answer");
+
+    if (index === q.correct) {
+
+        selectedButton.classList.add("correct");
+
+        document.getElementById("message").innerText =
+            "✓ Richtig!";
+
+        score++;
+
+    } else {
+
+        selectedButton.classList.add("wrong");
+
+        buttons[q.correct].classList.add("correct");
+
+        document.getElementById("message").innerText =
+            "✕ Leider falsch.";
+    }
+
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+
+    document.getElementById("nextButton").style.display = "block";
+}
+
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+
+        showQuestion();
+
+    } else {
+
+        showResult();
+    }
+}
+
+
+function showResult() {
+
+    document.getElementById("counter").innerText = "";
+
+    document.getElementById("question").innerText =
+        "Quiz beendet!";
+
+    document.getElementById("answers").innerHTML = "";
+
+    document.getElementById("message").innerText =
+        "Du hast " + score + " von " + questions.length + " Fragen richtig beantwortet.";
+
+    document.getElementById("nextButton").style.display = "none";
+
+    document.getElementById("restartButton").style.display = "block";
+}
+
+
+function restartQuiz() {
+
+    currentQuestion = 0;
+    score = 0;
+
+    document.getElementById("restartButton").style.display = "none";
+
+    showQuestion();
+}
+
+
+showQuestion();
+
+</script>
 
 </body>
 </html>
