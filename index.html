@@ -10,6 +10,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         html, body {
             margin: 0;
             width: 100%;
@@ -18,46 +22,121 @@
             background: black;
         }
 
-        .hero {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        /* HINTERGRUND */
 
         .background {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
             z-index: 0;
+            animation: oceanZoom 18s ease-in-out infinite alternate;
         }
 
         .overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.25);
+            background: rgba(0, 0, 0, 0.28);
             z-index: 1;
         }
 
-        .title {
+        @keyframes oceanZoom {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.06);
+            }
+        }
+
+
+        /* SEITENMENÜ */
+
+        .side-menu {
+            position: fixed;
+            left: 35px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .side-menu a {
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 300;
+            letter-spacing: 4px;
+
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .side-menu a::before {
+            content: "";
+            position: absolute;
+            left: -18px;
+            top: 50%;
+
+            width: 0;
+            height: 1px;
+
+            background: white;
+            transition: 0.3s;
+        }
+
+        .side-menu a:hover {
+            color: white;
+            transform: translateX(8px);
+        }
+
+        .side-menu a:hover::before {
+            width: 10px;
+        }
+
+
+        /* ALLGEMEINE ABSCHNITTE */
+
+        section {
             position: relative;
             z-index: 2;
-            margin-top: 55px;
+
+            min-height: 100vh;
+            width: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 60px 20px;
+        }
+
+
+        /* HOME */
+
+        #home {
+            flex-direction: column;
             text-align: center;
+        }
+
+        .title {
             color: white;
+            animation: titleAppear 1.5s ease-out forwards;
         }
 
         .title h1 {
             margin: 0;
-            font-size: clamp(36px, 5vw, 72px);
+
+            font-size: clamp(38px, 6vw, 78px);
             font-weight: 300;
-            letter-spacing: 14px;
+            letter-spacing: 16px;
+
             text-transform: uppercase;
             text-shadow: 0 2px 15px rgba(0,0,0,0.4);
         }
@@ -65,20 +144,76 @@
         .line {
             width: 70px;
             height: 1px;
+
+            margin: 20px auto;
+
             background: rgba(255,255,255,0.9);
-            margin: 18px auto 0;
+
+            animation: lineGrow 1.5s ease-out 0.5s both;
         }
 
-        .quiz-box {
-            position: relative;
-            z-index: 2;
-            width: min(90%, 600px);
-            margin: 70px auto 50px;
+        .subtitle {
+            color: rgba(255,255,255,0.8);
+
+            letter-spacing: 5px;
+            font-size: 13px;
+            font-weight: 300;
+
+            text-transform: uppercase;
+
+            opacity: 0;
+
+            animation: fadeUp 1.4s ease-out 1s forwards;
+        }
+
+        @keyframes titleAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes lineGrow {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+
+            to {
+                width: 70px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* GLAS-EFFEKT */
+
+        .glass-box {
+            width: min(90%, 650px);
             padding: 35px;
+
             color: white;
             text-align: center;
 
             background: rgba(0, 0, 0, 0.55);
+
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
 
@@ -86,31 +221,44 @@
             border-radius: 20px;
 
             box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+
+            animation: fadeUp 1s ease-out;
         }
 
-        .quiz-box h2 {
+        .glass-box h2 {
             margin-top: 0;
-            font-size: 24px;
+
+            font-size: 25px;
             font-weight: 300;
-            letter-spacing: 5px;
+            letter-spacing: 6px;
+
             text-transform: uppercase;
         }
 
+
+        /* QUIZ */
+
         #counter {
             opacity: 0.7;
-            font-size: 14px;
+            font-size: 13px;
+
             margin-bottom: 20px;
+
+            letter-spacing: 2px;
         }
 
         #question {
             font-size: 22px;
             line-height: 1.4;
+
             margin-bottom: 25px;
         }
 
         .answer {
             display: block;
+
             width: 100%;
+
             padding: 14px 18px;
             margin: 12px 0;
 
@@ -121,6 +269,7 @@
             color: white;
 
             font-size: 16px;
+
             cursor: pointer;
 
             transition: 0.25s;
@@ -131,24 +280,31 @@
             transform: translateY(-2px);
         }
 
+        .answer:disabled {
+            cursor: default;
+        }
+
         .correct {
-            background: rgba(30, 160, 90, 0.65) !important;
+            background: rgba(30,160,90,0.65) !important;
         }
 
         .wrong {
-            background: rgba(200, 50, 50, 0.65) !important;
+            background: rgba(200,50,50,0.65) !important;
         }
 
         #message {
             min-height: 30px;
             margin-top: 20px;
+
             font-size: 18px;
         }
 
-        #nextButton,
-        #restartButton {
-            display: none;
+
+        /* BUTTONS */
+
+        .main-button {
             margin: 20px auto 0;
+
             padding: 12px 28px;
 
             border: 1px solid white;
@@ -157,124 +313,188 @@
             background: transparent;
             color: white;
 
-            font-size: 15px;
+            font-size: 14px;
             letter-spacing: 2px;
+
             cursor: pointer;
 
             transition: 0.25s;
         }
 
-        #nextButton:hover,
-        #restartButton:hover {
+        .main-button:hover {
             background: white;
             color: black;
         }
-/* Langsame Bewegung des Hintergrundbildes */
-.background {
-    animation: oceanZoom 18s ease-in-out infinite alternate;
-}
 
-@keyframes oceanZoom {
-    from {
-        transform: scale(1);
-    }
-
-    to {
-        transform: scale(1.06);
-    }
-}
+        #nextButton,
+        #restartButton {
+            display: none;
+        }
 
 
-/* SEA COAST fährt elegant von oben ein */
-.title {
-    animation: titleAppear 1.5s ease-out forwards;
-}
+        /* SPIEL */
 
-@keyframes titleAppear {
-    from {
-        opacity: 0;
-        transform: translateY(-25px);
-    }
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+            margin-bottom: 18px;
+
+            font-size: 15px;
+            letter-spacing: 2px;
+        }
+
+        .game-area {
+            position: relative;
+
+            width: 100%;
+            height: 360px;
+
+            overflow: hidden;
+
+            margin-top: 20px;
+
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 16px;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(30,110,150,0.30),
+                    rgba(20,80,110,0.25),
+                    rgba(210,180,120,0.18)
+                );
+        }
+
+        .shell {
+            position: absolute;
+
+            display: none;
+
+            font-size: 46px;
+
+            cursor: pointer;
+
+            user-select: none;
+
+            transition: transform 0.12s;
+
+            animation: shellPop 0.25s ease-out;
+        }
+
+        .shell:hover {
+            transform: scale(1.18);
+        }
+
+        @keyframes shellPop {
+            from {
+                transform: scale(0.4);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        #gameMessage {
+            min-height: 28px;
+
+            margin-top: 15px;
+
+            font-size: 17px;
+        }
 
 
-/* Quiz erscheint etwas später */
-.quiz-box {
-    opacity: 0;
-    animation: quizAppear 1.3s ease-out 0.7s forwards;
-}
+        /* HANDY */
 
-@keyframes quizAppear {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
+        @media (max-width: 700px) {
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-/* Linie unter SEA COAST wächst auseinander */
-.line {
-    animation: lineGrow 1.5s ease-out 0.5s both;
-}
+            .side-menu {
+                left: 15px;
+                gap: 22px;
+            }
 
-@keyframes lineGrow {
-    from {
-        width: 0;
-        opacity: 0;
-    }
+            .side-menu a {
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
 
-    to {
-        width: 70px;
-        opacity: 1;
-    }
-}
-        @media (max-width: 600px) {
             .title h1 {
-                font-size: 32px;
+                font-size: 34px;
                 letter-spacing: 8px;
             }
 
-            .title {
-                margin-top: 35px;
-            }
-
-            .quiz-box {
-                margin-top: 45px;
+            .glass-box {
+                width: 92%;
                 padding: 25px 18px;
             }
 
             #question {
                 font-size: 19px;
             }
+
+            .game-area {
+                height: 320px;
+            }
+
+            .shell {
+                font-size: 40px;
+            }
         }
     </style>
 </head>
 
+
 <body>
 
-<div class="hero">
 
-    <img
-        class="background"
-        src="pexels-white-noiise-77351716-29027466.jpg"
-        alt="SeaCoast"
-    >
+<!-- HINTERGRUNDBILD -->
 
-    <div class="overlay"></div>
+<img
+    class="background"
+    src="pexels-white-noiise-77351716-29027466.jpg"
+    alt="SeaCoast"
+>
+
+<div class="overlay"></div>
+
+
+<!-- MENÜ -->
+
+<nav class="side-menu">
+    <a href="#home">HOME</a>
+    <a href="#quiz">QUIZ</a>
+    <a href="#game">SPIEL</a>
+</nav>
+
+
+<!-- HOME -->
+
+<section id="home">
 
     <div class="title">
+
         <h1>Sea Coast</h1>
+
         <div class="line"></div>
+
+        <div class="subtitle">
+            Explore · Discover · Enjoy
+        </div>
+
     </div>
 
-    <div class="quiz-box">
+</section>
+
+
+<!-- QUIZ -->
+
+<section id="quiz">
+
+    <div class="glass-box">
 
         <h2>Ocean Quiz</h2>
 
@@ -286,20 +506,91 @@
 
         <div id="message"></div>
 
-        <button id="nextButton" onclick="nextQuestion()">
+        <button
+            id="nextButton"
+            class="main-button"
+            onclick="nextQuestion()"
+        >
             WEITER
         </button>
 
-        <button id="restartButton" onclick="restartQuiz()">
+        <button
+            id="restartButton"
+            class="main-button"
+            onclick="restartQuiz()"
+        >
             NOCH EINMAL
         </button>
 
     </div>
 
-</div>
+</section>
+
+
+<!-- SPIEL -->
+
+<section id="game">
+
+    <div class="glass-box">
+
+        <h2>Shell Hunt</h2>
+
+        <p>
+            Sammle so viele Muscheln wie möglich.
+            Du hast 30 Sekunden Zeit.
+        </p>
+
+        <div class="game-info">
+
+            <div>
+                PUNKTE:
+                <strong id="gameScore">0</strong>
+            </div>
+
+            <div>
+                ZEIT:
+                <strong id="gameTime">30</strong>
+            </div>
+
+        </div>
+
+        <button
+            id="gameStartButton"
+            class="main-button"
+            onclick="startGame()"
+        >
+            SPIEL STARTEN
+        </button>
+
+        <div
+            class="game-area"
+            id="gameArea"
+        >
+
+            <div
+                class="shell"
+                id="shell"
+                onclick="collectShell()"
+            >
+                🐚
+            </div>
+
+        </div>
+
+        <div id="gameMessage">
+            Klicke auf „SPIEL STARTEN“.
+        </div>
+
+    </div>
+
+</section>
 
 
 <script>
+
+/* =======================================
+   QUIZ
+======================================= */
 
 const questions = [
 
@@ -360,6 +651,7 @@ const questions = [
 
 ];
 
+
 let currentQuestion = 0;
 let score = 0;
 let answered = false;
@@ -372,23 +664,36 @@ function showQuestion() {
     const q = questions[currentQuestion];
 
     document.getElementById("counter").innerText =
-        "FRAGE " + (currentQuestion + 1) + " VON " + questions.length;
+        "FRAGE " +
+        (currentQuestion + 1) +
+        " VON " +
+        questions.length;
 
-    document.getElementById("question").innerText = q.question;
+    document.getElementById("question").innerText =
+        q.question;
 
-    document.getElementById("message").innerText = "";
+    document.getElementById("message").innerText =
+        "";
 
-    document.getElementById("nextButton").style.display = "none";
+    document.getElementById("nextButton").style.display =
+        "none";
 
-    const answersDiv = document.getElementById("answers");
+    document.getElementById("restartButton").style.display =
+        "none";
+
+    const answersDiv =
+        document.getElementById("answers");
 
     answersDiv.innerHTML = "";
 
+
     q.answers.forEach((answer, index) => {
 
-        const button = document.createElement("button");
+        const button =
+            document.createElement("button");
 
         button.className = "answer";
+
         button.innerText = answer;
 
         button.onclick = function() {
@@ -396,6 +701,7 @@ function showQuestion() {
         };
 
         answersDiv.appendChild(button);
+
     });
 }
 
@@ -408,7 +714,9 @@ function checkAnswer(index, selectedButton) {
 
     const q = questions[currentQuestion];
 
-    const buttons = document.querySelectorAll(".answer");
+    const buttons =
+        document.querySelectorAll(".answer");
+
 
     if (index === q.correct) {
 
@@ -429,11 +737,14 @@ function checkAnswer(index, selectedButton) {
             "✕ Leider falsch.";
     }
 
+
     buttons.forEach(button => {
         button.disabled = true;
     });
 
-    document.getElementById("nextButton").style.display = "block";
+
+    document.getElementById("nextButton").style.display =
+        "block";
 }
 
 
@@ -454,19 +765,47 @@ function nextQuestion() {
 
 function showResult() {
 
-    document.getElementById("counter").innerText = "";
+    document.getElementById("counter").innerText =
+        "";
 
     document.getElementById("question").innerText =
         "Quiz beendet!";
 
-    document.getElementById("answers").innerHTML = "";
+    document.getElementById("answers").innerHTML =
+        "";
 
-    document.getElementById("message").innerText =
-        "Du hast " + score + " von " + questions.length + " Fragen richtig beantwortet.";
 
-    document.getElementById("nextButton").style.display = "none";
+    let rating = "";
 
-    document.getElementById("restartButton").style.display = "block";
+
+    if (score === 5) {
+
+        rating = "Ocean Expert 🌊";
+
+    } else if (score >= 3) {
+
+        rating = "Sehr gut!";
+
+    } else {
+
+        rating = "Da geht noch was!";
+    }
+
+
+    document.getElementById("message").innerHTML =
+        "Du hast <strong>" +
+        score +
+        " von " +
+        questions.length +
+        "</strong> Fragen richtig.<br><br>" +
+        rating;
+
+
+    document.getElementById("nextButton").style.display =
+        "none";
+
+    document.getElementById("restartButton").style.display =
+        "block";
 }
 
 
@@ -475,13 +814,170 @@ function restartQuiz() {
     currentQuestion = 0;
     score = 0;
 
-    document.getElementById("restartButton").style.display = "none";
-
     showQuestion();
 }
 
 
 showQuestion();
+
+
+
+/* =======================================
+   MUSCHEL-SPIEL
+======================================= */
+
+let gameScore = 0;
+
+let gameTime = 30;
+
+let gameRunning = false;
+
+let gameTimer;
+
+
+function startGame() {
+
+    if (gameRunning) return;
+
+    gameRunning = true;
+
+    gameScore = 0;
+
+    gameTime = 30;
+
+
+    document.getElementById("gameScore").innerText =
+        gameScore;
+
+    document.getElementById("gameTime").innerText =
+        gameTime;
+
+    document.getElementById("gameMessage").innerText =
+        "Los geht's! Finde die Muscheln!";
+
+    document.getElementById("gameStartButton").innerText =
+        "SPIEL LÄUFT";
+
+
+    moveShell();
+
+
+    gameTimer = setInterval(function() {
+
+        gameTime--;
+
+        document.getElementById("gameTime").innerText =
+            gameTime;
+
+
+        if (gameTime <= 0) {
+
+            endGame();
+        }
+
+    }, 1000);
+}
+
+
+function moveShell() {
+
+    if (!gameRunning) return;
+
+
+    const area =
+        document.getElementById("gameArea");
+
+    const shell =
+        document.getElementById("shell");
+
+
+    const maxX =
+        area.clientWidth - 60;
+
+    const maxY =
+        area.clientHeight - 60;
+
+
+    const randomX =
+        Math.random() * maxX;
+
+    const randomY =
+        Math.random() * maxY;
+
+
+    shell.style.left =
+        randomX + "px";
+
+    shell.style.top =
+        randomY + "px";
+
+    shell.style.display =
+        "block";
+}
+
+
+function collectShell() {
+
+    if (!gameRunning) return;
+
+
+    gameScore++;
+
+
+    document.getElementById("gameScore").innerText =
+        gameScore;
+
+
+    moveShell();
+}
+
+
+function endGame() {
+
+    clearInterval(gameTimer);
+
+    gameRunning = false;
+
+
+    document.getElementById("shell").style.display =
+        "none";
+
+
+    document.getElementById("gameStartButton").innerText =
+        "NOCH EINMAL";
+
+
+    let result = "";
+
+
+    if (gameScore >= 30) {
+
+        result =
+            "Unglaublich! Du bist ein echter Sea Coast Profi! 🌊";
+
+    } else if (gameScore >= 20) {
+
+        result =
+            "Sehr stark! 🐚";
+
+    } else if (gameScore >= 10) {
+
+        result =
+            "Gut gemacht!";
+
+    } else {
+
+        result =
+            "Versuch es noch einmal!";
+    }
+
+
+    document.getElementById("gameMessage").innerHTML =
+        "Zeit vorbei! Du hast <strong>" +
+        gameScore +
+        " Muscheln</strong> gesammelt.<br>" +
+        result;
+}
 
 </script>
 
